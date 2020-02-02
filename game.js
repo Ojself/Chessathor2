@@ -1,7 +1,7 @@
 class Game {
   constructor() {
     this.squares = [];
-    this.pieces = [];
+    this.pieces = [new Rook(225, 425, 'rook'), new Bishop(425, 425, 'bishop'), new Pawn(125, 725, 'Pawn'), new Pawn(725, 125, 'Pawn'), new Pawn(225, 325, 'Pawn'), new Pawn(725, 625, 'Pawn')];
     this.player = new Player();
     this.finishTile = new FinishTile(100, 100);
     this.background = new Background('olivedrab');
@@ -18,13 +18,33 @@ class Game {
         this.squares.push(square);
       }
     }
+    this.pieces.forEach(el => el.setup())
+
+
   }
   draw() {
+
     this.squares.forEach(el => {
       el.draw();
     });
+    this.pieces.forEach(el => el.draw())
+
 
     this.player.draw();
     this.finishTile.draw();
   }
+
+  handleCollision() {
+    // knockback
+    // score handle
+    this.drawCheck()
+  }
+  drawCheck() {
+
+    fill('red')
+    textSize(40);
+
+    text('CHECK!', game.player.x, game.player.y);
+  }
 }
+

@@ -1,9 +1,9 @@
 class Player {
   constructor() {
-    this.x = 512;
-    this.y = 812;
-    this.height = 75;
-    this.width = 75;
+    this.x = 525;
+    this.y = 825;
+    this.height = 50;
+    this.width = 50;
     this.currentMoves = [];
   }
 
@@ -11,7 +11,7 @@ class Player {
     this.playerImg = loadImage('pics/bk.png');
   }
   draw() {
-    console.log(this.x, this.y);
+
     image(this.playerImg, this.x, this.y, this.width, this.height);
   }
 
@@ -89,7 +89,7 @@ class Player {
     let moveMentInterval = setInterval(() => {
       this[axis] += schrödingerValue;
       helperCounter++;
-      if (helperCounter === 20) {
+      if (helperCounter > 19) {
         clearInterval(moveMentInterval);
       }
     }, 1);
