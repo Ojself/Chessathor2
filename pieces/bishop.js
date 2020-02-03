@@ -1,10 +1,10 @@
 class Bishop {
-    constructor(x, y, name, id) {
+    constructor(x, y, id) {
         this.x = x
         this.y = y
         this.width = 50;
         this.height = 50;
-        this.name = name
+        this.name = 'bishop'
         this.id = id
     }
 

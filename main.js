@@ -14,6 +14,9 @@ function draw() {
 }
 
 function keyPressed() {
-  game.player.move();
+  if (keyCode < 41 && keyCode > 36) {
+    game.player.move()
+  }
   return false; // prevent any default behaviour
+
 }

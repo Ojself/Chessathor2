@@ -1,22 +1,31 @@
 class Player {
-  constructor() {
-    this.x = 525;
-    this.y = 825;
+  constructor(x, y, name) {
+    this.x = x;
+    this.y = y;
     this.height = 50;
     this.width = 50;
-    this.currentMoves = [];
+    this.name = name
+    this.tempMove = [];
+
+    this.lastMove;
+    this.isMoving = false
   }
 
   setup() {
     this.playerImg = loadImage('pics/bk.png');
   }
   draw() {
-
     image(this.playerImg, this.x, this.y, this.width, this.height);
   }
 
+
+  knockBack() {
+    const knockBackDirection = getOppositeDirection(this.lastMove)
+    this.smoothMove(knockBackDirection[0], knockBackDirection[1], 1)
+  }
   move() {
-    this.currentMoves.push(keyCode);
+
+    this.tempMove.push(keyCode);
     let direction;
     const directions = {
       38: 'north',
@@ -25,73 +34,82 @@ class Player {
       39: 'east'
     };
 
-    // takes care of double keys
-    if (this.currentMoves.length === 2) {
-      if (this.currentMoves.every(i => [38, 39].includes(i))) {
-        direction = 'northEast';
-      }
-      if (this.currentMoves.every(i => [40, 39].includes(i))) {
-        direction = 'southEast';
-      }
-      if (this.currentMoves.every(i => [40, 37].includes(i))) {
-        direction = 'southWest';
-      }
-      if (this.currentMoves.every(i => [38, 37].includes(i))) {
-        direction = 'northWest';
-      }
-      this.currentMoves = [];
+    if (this.tempMove.length === 2) {
+      this.tempMove.sort()
+      direction = `${directions[this.tempMove[0]]}${directions[this.tempMove[1]]}`
+      this.tempMove = [];
       this.movePlayer(direction);
     } else {
-      // check legal action
       setTimeout(() => {
-        direction = directions[this.currentMoves[0]];
-        this.movePlayer(direction);
-        this.currentMoves = [];
+        direction = directions[this.tempMove[0]];
+        if (direction) {
+          this.movePlayer(direction);
+        }
+        this.tempMove = [];
       }, 20);
     }
   }
 
   movePlayer(direction) {
+    this.lastMove = direction
     switch (direction) {
-      case 'northEast':
-        this.smoothMove('y', -100);
-        this.smoothMove('x', +100);
+      case 'northeast':
+        this.smoothMove(1, -1);
         break;
-      case 'southEast':
-        this.smoothMove('y', 100);
-        this.smoothMove('x', 100);
+      case 'eastsouth':
+        this.smoothMove(1, 1);
         break;
-      case 'southWest':
-        this.smoothMove('y', 100);
-        this.smoothMove('x', -100);
+      case 'westsouth':
+        this.smoothMove(-1, 1);
         break;
-      case 'northWest':
-        this.smoothMove('y', -100);
-        this.smoothMove('x', -100);
+      case 'westnorth':
+        this.smoothMove(-1, -1);
         break;
       case 'north':
-        this.smoothMove('y', -100);
+        this.smoothMove(0, -1);
         break;
       case 'south':
-        this.smoothMove('y', 100);
+        this.smoothMove(0, 1);
         break;
       case 'west':
-        this.smoothMove('x', -100);
+        this.smoothMove(-1, 0);
         break;
       case 'east':
-        this.smoothMove('x', 100);
+        this.smoothMove(1, 0);
         break;
     }
   }
-  smoothMove(axis, value) {
-    const schrödingerValue = Math.sign(value) * 5;
+  smoothMove(x, y, speed = 1) {
+    if (this.isMoving) {
+      return
+    }
+    this.isMoving = true
     let helperCounter = 0;
     let moveMentInterval = setInterval(() => {
-      this[axis] += schrödingerValue;
-      helperCounter++;
+      this.x += (x * 5)
+      this.y += (y * 5)
+      helperCounter++
       if (helperCounter > 19) {
+        this.isMoving = false
         clearInterval(moveMentInterval);
       }
-    }, 1);
+    }, speed);
   }
 }
+
+function getOppositeDirection(lastDirection) {
+  const oppositeDirection = {
+    northeast: [-1, 1],
+    eastsouth: [-1, -1],
+    westsouth: [1, -1],
+    westnorth: [1, 1],
+    north: [0, 1],
+    south: [0, -1],
+    west: [1, 0],
+    east: [-1, 0]
+  }
+  const xy = oppositeDirection[lastDirection]
+  return xy
+}
+
+
