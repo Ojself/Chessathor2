@@ -6,8 +6,10 @@ class Pawn {
         this.height = 50;
 
         this.name = 'pawn'
-        this.id = id
+        this.id = id // chess notation eg. E4
         this.expanding = false
+
+        this.dead = false // for when piece is flying off
     }
 
     setup() {
@@ -15,6 +17,7 @@ class Pawn {
     }
 
     draw() {
+        // debug helper
         fill('red')
         textSize(10)
         text(`x:${this.x} y:${this.y}`, this.x, this.y)
@@ -22,18 +25,21 @@ class Pawn {
 
         if (this.expanding) {
             image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
+        } else {
+            image(this.pawnImg, this.x, this.y, this.width, this.height);
         }
-        image(this.pawnImg, this.x, this.y, this.width, this.height);
 
         if (this.collisionCheck(game.player)) {
             this.tempExpandImage()
-            game.handleCollision(game.player.x, game.player.y)
+            game.handleCheckCollision(game.player.x, game.player.y)
         }
     }
 
     collisionCheck(player) {
+
         // y axis
-        if (player.y >= this.y + 100 && player.y <= this.y + 100) {
+        if (player.y >= this.y + 100 && player.y <= this.y + 100 && this.dead === false && player.isMoving === false) {
+
             // right square
             if (player.x >= this.x + 100 && player.x <= this.x + 100) {
                 return true
@@ -51,5 +57,22 @@ class Pawn {
         setTimeout(() => {
             this.expanding = false
         }, 200);
+    }
+
+    handleDead() {
+        this.dead = true
+        let deadHelper = 1000
+        const xRandom = Math.random() > 0.5 ? -1 : 1
+        const yRandom = Math.random() > 0.5 ? -1 : 1
+        let flyInterval = setInterval(() => {
+            this.x -= 5 * xRandom
+            this.y -= 5 * yRandom
+            this.width -= 0.2
+            this.height -= 0.2
+            deadHelper -= 1
+            if (deadHelper < 0) {
+                clearInterval(flyInterval)
+            }
+        }, 5);
     }
 }

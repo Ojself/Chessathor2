@@ -1,15 +1,21 @@
 const game = new Game();
+//const menu = new Menu()
 
 function preload() {
   //  game.player.preload();
 }
 
 function setup() {
-  createCanvas(800, 1000);
+  createCanvas(800, 800);
   game.setup();
 }
 
 function draw() {
+
+  /* if (frameCount % 200 === 0) {
+    wakeUpServer()
+  } */
+
   game.draw();
 }
 

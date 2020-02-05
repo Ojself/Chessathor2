@@ -9,6 +9,11 @@ class Player {
 
     this.lastMove;
     this.isMoving = false
+
+    this.moveHistory = []
+    this.captures = 0
+
+
   }
 
   setup() {
@@ -16,15 +21,18 @@ class Player {
   }
   draw() {
     image(this.playerImg, this.x, this.y, this.width, this.height);
+    fill('blue')
+    text(`${this.x}, ${this.y}`, this.x, this.y)
+
   }
 
-
+  // knocks back player when walking into 'check'
   knockBack() {
     const knockBackDirection = getOppositeDirection(this.lastMove)
-    this.smoothMove(knockBackDirection[0], knockBackDirection[1], 1)
+    this.smoothMove(knockBackDirection[0], knockBackDirection[1])
   }
-  move() {
 
+  move() {
     this.tempMove.push(keyCode);
     let direction;
     const directions = {
@@ -79,8 +87,8 @@ class Player {
         break;
     }
   }
-  smoothMove(x, y, speed = 1) {
-    if (this.isMoving) {
+  smoothMove(x, y) {
+    if (this.isMoving || checkBorders(x, y, this.x, this.y)) {
       return
     }
     this.isMoving = true
@@ -93,7 +101,7 @@ class Player {
         this.isMoving = false
         clearInterval(moveMentInterval);
       }
-    }, speed);
+    }, 1);
   }
 }
 
@@ -112,4 +120,23 @@ function getOppositeDirection(lastDirection) {
   return xy
 }
 
+function checkBorders(x, y, playerX, playerY) {
+  if (!!y) { // if player is even moving south and/or north
+    if (y > 0 && playerY + 100 > height) {
+      return true
+    }
+    if (y < 0 && playerY - 100 < 0) {
+      return true
+    }
+  }
+  if (!!x) { // if player is even moving east and/or west
+    if (x > 0 && playerX + 100 > width) {
+      return true
+    }
+    if (x < 0 && playerX - 100 < 0) {
+      return true
+    }
+  }
 
+  return false
+}
