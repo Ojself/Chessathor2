@@ -10,10 +10,6 @@ class Player {
     this.lastMove;
     this.isMoving = false
 
-    this.moveHistory = []
-    this.captures = 0
-
-
   }
 
   setup() {
@@ -21,8 +17,10 @@ class Player {
   }
   draw() {
     image(this.playerImg, this.x, this.y, this.width, this.height);
+    // debug
+    /* 
     fill('blue')
-    text(`${this.x}, ${this.y}`, this.x, this.y)
+    text(`${this.x}, ${this.y}`, this.x, this.y) */
 
   }
 
@@ -92,6 +90,7 @@ class Player {
       return
     }
     this.isMoving = true
+    game.moveHistory.push([x, y])
     let helperCounter = 0;
     let moveMentInterval = setInterval(() => {
       this.x += (x * 5)
@@ -121,7 +120,7 @@ function getOppositeDirection(lastDirection) {
 }
 
 function checkBorders(x, y, playerX, playerY) {
-  if (!!y) { // if player is even moving south and/or north
+  if (!!y) { // if player is moving south or north
     if (y > 0 && playerY + 100 > height) {
       return true
     }
@@ -129,8 +128,9 @@ function checkBorders(x, y, playerX, playerY) {
       return true
     }
   }
-  if (!!x) { // if player is even moving east and/or west
-    if (x > 0 && playerX + 100 > width) {
+  if (!!x) { // if player is even moving east or west
+    const rightMenuBuffer = -200
+    if (x > 0 && playerX + 100 > width+rightMenuBuffer) {
       return true
     }
     if (x < 0 && playerX - 100 < 0) {

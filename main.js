@@ -6,7 +6,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(1000, 780);
   game.setup();
 }
 
@@ -24,5 +24,4 @@ function keyPressed() {
     game.player.move()
   }
   return false; // prevent any default behaviour
-
 }

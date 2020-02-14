@@ -45,9 +45,13 @@ function startGame() {
         });
 }
 
+this.capturedPieces = []
+this.moveHistory = []
+this.checks = 0
 
-function levelComplete() {
-    fetch('/updateStats', { method: 'PUT' })
+
+function levelComplete(data) {
+    fetch('/updateStats', { method: 'PUT', body: data })
         .then((response) => {
             if (response.ok) {
                 console.log(response, 'response')

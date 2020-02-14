@@ -27,5 +27,3 @@ class FinishTile {
     return false
   }
 }
-
-

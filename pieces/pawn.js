@@ -18,10 +18,10 @@ class Pawn {
 
     draw() {
         // debug helper
-        fill('red')
+        /* fill('red')
         textSize(10)
         text(`x:${this.x} y:${this.y}`, this.x, this.y)
-        text(this.id, this.x, this.y + 20)
+        text(this.id, this.x, this.y + 20) */
 
         if (this.expanding) {
             image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
@@ -34,7 +34,7 @@ class Pawn {
     collisionCheck(player) {
 
         // y axis
-        if (player.y >= this.y + 100 && player.y <= this.y + 100 && this.dead === false /* && player.isMoving === false */) {
+        if (player.y >= this.y + 100 && player.y <= this.y + 100 && this.dead === false) {
 
             // right square
             if (player.x >= this.x + 100 && player.x <= this.x + 100) {
