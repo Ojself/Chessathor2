@@ -12,7 +12,7 @@ class Knight {
     }
 
     setup() {
-        this.knightImage = loadImage('../pics/bn.png');
+        this.knightImage = loadImage('../pics/wn.png');
     }
 
     tempExpandImage() {

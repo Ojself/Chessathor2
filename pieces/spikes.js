@@ -1,4 +1,4 @@
-class Pawn {
+class Spikes {
     constructor(x, y, id) {
         this.x = x;
         this.y = y;
@@ -13,7 +13,7 @@ class Pawn {
     }
 
     setup() {
-        //this.pawnImg = loadImage('../pics/bp.png');
+        this.spikeImg = loadImage('../pics/spikes.png');
     }
 
     draw() {
@@ -24,9 +24,9 @@ class Pawn {
         text(this.id, this.x, this.y + 20)
 
         if (this.expanding) {
-            //image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
+            image(this.spikeImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
         } else {
-            //image(this.pawnImg, this.x, this.y, this.width, this.height);
+            image(this.spikeImg, this.x, this.y, this.width, this.height);
         }
 
     }
@@ -34,14 +34,14 @@ class Pawn {
     collisionCheck(player) {
         // todo, this is still pawn collision
         // y axis
-        if (player.y >= this.y + 100 && player.y <= this.y + 100 && this.dead === false /* && player.isMoving === false */) {
+        if (player.y >= this.y && player.y <= this.y  /* && player.isMoving === false */) {
 
             // right square
-            if (player.x >= this.x + 100 && player.x <= this.x + 100) {
+            if (player.x >= this.x && player.x <= this.x) {
                 return true
             }
             // left square
-            if (player.x >= this.x - 100 && player.x <= this.x - 100) {
+            if (player.x >= this.x && player.x <= this.x) {
                 return true
             }
         }

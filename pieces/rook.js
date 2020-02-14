@@ -12,7 +12,7 @@ class Rook {
     }
 
     setup() {
-        this.rookImg = loadImage('../pics/br.png');
+        this.rookImg = loadImage('../pics/wr.png');
     }
 
     draw() {

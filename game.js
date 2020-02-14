@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.currentLevel = 14
+    this.currentLevel = 19
     this.squares = [];
     this.pieces = [];
     this.capturedPieces = []
@@ -136,7 +136,8 @@ function getMapPiece(level, x, y) {
     R: new Rook((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     B: new Bishop((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     N: new Knight((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
-    S: new Player((y * 100) + 25, (x * 100) + 25, 'player')
+    S: new Spikes((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
+    A: new Player((y * 100) + 25, (x * 100) + 25, 'player')
   }
   return pieces[determinePiece]
 }

@@ -13,7 +13,7 @@ class Pawn {
     }
 
     setup() {
-        this.pawnImg = loadImage('../pics/bp.png');
+        this.pawnImg = loadImage('../pics/wp.png');
     }
 
     draw() {
