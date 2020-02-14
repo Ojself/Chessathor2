@@ -137,6 +137,5 @@ function checkBorders(x, y, playerX, playerY) {
       return true
     }
   }
-
   return false
 }

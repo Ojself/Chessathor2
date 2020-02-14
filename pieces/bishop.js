@@ -21,10 +21,6 @@ class Bishop {
         } else {
             image(this.bishopImg, this.x, this.y, this.width, this.height);
         }
-        if (this.collisionCheck(game.player)) {
-            this.tempExpandImage()
-            game.handleCheckCollision(game.player.x, game.player.y)
-        }
     }
 
     tempExpandImage() {

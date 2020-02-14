@@ -6,54 +6,77 @@ class Knight {
         this.height = 50;
         this.name = 'knight'
         this.id = id
+
+        this.expanding = false
+        this.dead = false // for when piece is flying off
     }
 
     setup() {
         this.knightImage = loadImage('../pics/bn.png');
     }
 
-    draw() {
+    tempExpandImage() {
+        this.expanding = true
+        setTimeout(() => {
+            this.expanding = false
+        }, 200);
+    }
 
-        image(this.knightImage, this.x, this.y, this.width, this.height);
-        if (this.collisionCheck(game.player)) {
-            game.handleCheckCollision()
+    handleDead() {
+        this.dead = true
+        let deadHelper = 1000
+        const xRandom = Math.random() > 0.5 ? -1 : 1
+        const yRandom = Math.random() > 0.5 ? -1 : 1
+        let flyInterval = setInterval(() => {
+            this.x -= 5 * xRandom
+            this.y -= 5 * yRandom
+            this.width -= 0.2
+            this.height -= 0.2
+            deadHelper -= 1
+            if (deadHelper < 0) {
+                clearInterval(flyInterval)
+            }
+        }, 5);
+    }
+
+    draw() {
+        if (this.expanding) {
+            image(this.knightImage, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
+        } else {
+            image(this.knightImage, this.x, this.y, this.width, this.height);
         }
     }
 
     collisionCheck(player) {
-        const downRight = checkCollidingDiagonal(player, this.x, this.y, 1, 1)
-        const upRight = checkCollidingDiagonal(player, this.x, this.y, 1, -1)
-        const downLeft = checkCollidingDiagonal(player, this.x, this.y, -1, 1)
-        const upLeft = checkCollidingDiagonal(player, this.x, this.y, -1, -1)
-        if (downRight || upRight || downLeft || upLeft) {
+        if (this.dead) { return false }
+
+        const down = this.checkCollidingKnight(player, 1, 'y', 'x')
+        const up = this.checkCollidingKnight(player, -1, 'y', 'x')
+        const left = this.checkCollidingKnight(player, -1, 'x', 'y')
+        const right = this.checkCollidingKnight(player, 1, 'x', 'y')
+
+        if (up || down || left || right) {
             return true
         }
         return false
     }
-}
 
+    checkCollidingKnight(player, dir, twoStep, oneStep) {
 
-function checkCollidingDiagonal(player, x, y, dirX, dirY) {
-
-    for (let i = 0; i < 8 && checkCollidingWithBishop(x, y, i, dirX, dirY); i++) {
-
-        const helperX = (100 * dirX) + x + i * 100 * dirX
-        const helperY = (100 * dirY) + y + i * 100 * dirY
-
-        if (player.x + player.width > helperX && player.x - player.width < helperX) {
-            if (player.y + player.width > helperY && player.y - player.height < helperY) {
+        if (player[twoStep] >= this[twoStep] + (200 * dir) && player[twoStep] <= this[twoStep] + (200 * dir) && this.dead === false) {
+            if (player[oneStep] >= this[oneStep] + (100 * dir) && player[oneStep] <= this[oneStep] + (100 * dir)) {
+                return true
+            }
+            if (player[oneStep] >= this[oneStep] - (100 * dir) && player[oneStep] <= this[oneStep] - (100 * dir)) {
                 return true
             }
         }
+        return false
+
     }
 }
 
-function checkCollidingWithBishop(x, y, i, dirX, dirY) {
-    const helperX = x + ((i * 100) * dirX)
-    const helperY = y + ((i * 100) * dirY)
 
-    const gamePieces = game.pieces.filter(p => p.id !== this.id)
-    if (gamePieces.find(p => p.x === helperX && p.y === helperY)) { return false }
-    return true
-}
+
+
 

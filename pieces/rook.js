@@ -22,10 +22,7 @@ class Rook {
         } else {
             image(this.rookImg, this.x, this.y, this.width, this.height);
         }
-        if (this.collisionCheck(game.player)) {
-            this.tempExpandImage()
-            game.handleCheckCollision(game.player.x, game.player.y)
-        }
+
     }
 
     tempExpandImage() {
@@ -37,22 +34,27 @@ class Rook {
 
     handleDead() {
         this.dead = true
-        let deadHelper = 1000
-        const xRandom = Math.random() > 0.5 ? -1 : 1
-        const yRandom = Math.random() > 0.5 ? -1 : 1
+        let deadIntervalHelper = 1000
+        const xRandom = Math.random() >= 0.5 ? -1 : 1
+        const yRandom = Math.random() >= 0.5 ? -1 : 1
+        const xTilt = Math.random() * 3 + 2
+        const yTilt = Math.random() * 3 + 2
         let flyInterval = setInterval(() => {
-            this.x -= 5 * xRandom
-            this.y -= 5 * yRandom
-            this.width -= 0.2
-            this.height -= 0.2
-            deadHelper -= 1
-            if (deadHelper < 0) {
+            this.x -= xTilt * xRandom
+            this.y -= yTilt * yRandom
+            this.width -= 0.1
+            this.height -= 0.1
+            deadIntervalHelper -= 1
+            if (deadIntervalHelper < 0) {
                 clearInterval(flyInterval)
             }
         }, 5);
     }
 
     collisionCheck(player) {
+        if (this.dead) {
+            return false
+        }
         const down = checkCollidingStraight(player, this.x, this.y, -1, true, this.id)
         const up = checkCollidingStraight(player, this.x, this.y, 1, true, this.id)
         const left = checkCollidingStraight(player, this.x, this.y, 1, false, this.id)
@@ -65,19 +67,14 @@ class Rook {
 }
 
 function checkCollidingStraight(player, x, y, dir, vertical, id) {
-
     for (let i = 0; i < 8 && checkCollidingWithRook(x, y, i, dir, vertical, id); i++) {
-
         const verticalValues = [x, y + (100 * dir) + (i * 100 * dir), 50, 50]
         const horizontalValues = [x + (100 * dir) + (i * 100 * dir), y, 50, 50]
 
-
         const valueHelper = vertical ? [verticalValues[0], verticalValues[1]] : [horizontalValues[0], horizontalValues[1]]
 
-        if (player.x + player.width > valueHelper[0] && player.x - player.width < valueHelper[0]) {
+        if (player.x + player.width > valueHelper[0] && player.x - player.width < valueHelper[0] && player.isMoving === false) {
             if (player.y + player.height >= valueHelper[1] && player.y - player.height <= valueHelper[1]) {
-                console.log('rook check')
-                console.log(player.y, player.x)
                 return true
             }
         }
@@ -86,7 +83,6 @@ function checkCollidingStraight(player, x, y, dir, vertical, id) {
 }
 
 function checkCollidingWithRook(x, y, i, dir, vertical, id) {
-
     let gamePieces;
     if (vertical) {
         gamePieces = game.pieces
@@ -99,7 +95,6 @@ function checkCollidingWithRook(x, y, i, dir, vertical, id) {
             .filter(p => p.id !== id)
         if (gamePieces.find(p => p.x === x + ((i * 100) * dir))) { return false }
     }
-
     return true
 }
 

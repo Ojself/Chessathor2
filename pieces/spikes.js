@@ -5,7 +5,7 @@ class Pawn {
         this.width = 50;
         this.height = 50;
 
-        this.name = 'pawn'
+        this.name = 'spikes'
         this.id = id // chess notation eg. E4
 
         this.expanding = false
@@ -13,7 +13,7 @@ class Pawn {
     }
 
     setup() {
-        this.pawnImg = loadImage('../pics/bp.png');
+        //this.pawnImg = loadImage('../pics/bp.png');
     }
 
     draw() {
@@ -24,15 +24,15 @@ class Pawn {
         text(this.id, this.x, this.y + 20)
 
         if (this.expanding) {
-            image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
+            //image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
         } else {
-            image(this.pawnImg, this.x, this.y, this.width, this.height);
+            //image(this.pawnImg, this.x, this.y, this.width, this.height);
         }
 
     }
 
     collisionCheck(player) {
-
+        // todo, this is still pawn collision
         // y axis
         if (player.y >= this.y + 100 && player.y <= this.y + 100 && this.dead === false /* && player.isMoving === false */) {
 

@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.currentLevel = 10
+    this.currentLevel = 14
     this.squares = [];
     this.pieces = [];
     this.capturedPieces = []
@@ -42,12 +42,20 @@ class Game {
     });
     this.pieces.forEach((p, i) => {
       p.draw()
+      if (p.collisionCheck(this.player)) {
+        console.log('collision')
+        p.tempExpandImage()
+        this.handleCheckCollision(this.player.x, this.player.y)
+      }
+
+    })
+    this.pieces.forEach((p, i) => {
       if (this.captureCheck(p, this.player) && p.name !== 'goal') {
-        this.handleCapture(p, i)
+        console.log('capture')
+        this.handleCapture(p, this.player)
+
       }
     })
-
-
     this.player.draw()
 
     if (this.check.checked) {
@@ -89,9 +97,6 @@ class Game {
   }
 
   captureCheck(piece, player) {
-    if (player.isMoving) {
-      return false
-    }
     if (
       player.x + player.width <= piece.x ||
       piece.x + piece.width <= player.x
@@ -104,16 +109,17 @@ class Game {
     ) {
       return false;
     }
-    console.log(piece.height, player.height)
+    if (player.isMoving) {
+      return false
+    }
     return true;
   }
-  handleCapture(p, index) {
+  handleCapture(p) {
     const pieceId = p.id
     if (this.capturedPieces.indexOf(pieceId) > -1) {
       return
     }
     this.capturedPieces.push(pieceId)
-    //this.pieces.splice(index, 1);
     p.handleDead()
   }
 }
@@ -129,6 +135,7 @@ function getMapPiece(level, x, y) {
     P: new Pawn((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     R: new Rook((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     B: new Bishop((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
+    N: new Knight((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     S: new Player((y * 100) + 25, (x * 100) + 25, 'player')
   }
   return pieces[determinePiece]
