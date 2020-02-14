@@ -32,7 +32,7 @@ class Queen {
     }
 
     collisionCheck(player) {
-
+        if (this.dead === false){return false}
         // y axis
         if (player.y >= this.y && player.y <= this.y  /* && player.isMoving === false */) {
             // right square

@@ -48,6 +48,7 @@ class Bishop {
     }
 
     collisionCheck(player) {
+        if (this.dead === true){return false}
         const downRight = checkCollidingDiagonal(player, this.x, this.y, 1, 1, this.id)
         const upRight = checkCollidingDiagonal(player, this.x, this.y, 1, -1, this.id)
 

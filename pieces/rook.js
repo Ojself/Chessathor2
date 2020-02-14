@@ -52,9 +52,9 @@ class Rook {
     }
 
     collisionCheck(player) {
-        if (this.dead) {
-            return false
-        }
+        if (this.dead === true){
+            console.log('ads')
+            return false}
         const down = checkCollidingStraight(player, this.x, this.y, -1, true, this.id)
         const up = checkCollidingStraight(player, this.x, this.y, 1, true, this.id)
         const left = checkCollidingStraight(player, this.x, this.y, 1, false, this.id)

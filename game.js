@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.currentLevel = 0
+    this.currentLevel = 22
     this.squares = [];
     this.pieces = [];
     this.capturedPieces = []
@@ -11,7 +11,8 @@ class Game {
     this.session;
     this.checks = 0
 
-    this.timer = 15 // class?
+    this.hud = new Hud()
+    
 
     this.check = {
       checked: false,
@@ -44,6 +45,7 @@ class Game {
   }
   draw() {
     this.background.draw()
+    this.hud.draw()
     this.squares.forEach(el => {
       el.draw();
     });
@@ -68,7 +70,7 @@ class Game {
       fill('red')
       text('CHECK', this.check.checkX, this.check.checkY)
     }
-    this.drawTimer()
+    
   }
 
   handleCheckCollision(x, y) {
@@ -128,33 +130,7 @@ class Game {
     this.capturedPieces.push(pieceId)
     p.handleDead()
   }
-  drawTimer (){
-    fill('white')
-    textAlign(CENTER, CENTER);
-
-    textSize(15);
-    text(`Checks ${this.checks}`,850, 20);
-
-    textSize(15);
-    text(`Captures ${this.capturedPieces.length}`,950, 20);
-    
-    textSize(30);
-    text(`Level ${this.currentLevel}`,860, 120);
-
-    textSize(10);
-    text(`Time bonus`,950, 80);
-
-    textSize(45);
-    text(`${this.timer}`,950, 120);
-
-    if (frameCount % 60 == 0 && this.timer > 0) { 
-      this.timer -=1;
-    }
-    /* if (this.timer === 0) {
-      textSize(30);
-      text("GAME OVER!", 900, 200);
-    } */
-   }
+  
 }
 
 function getMapPiece(level, x, y) {
