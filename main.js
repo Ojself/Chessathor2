@@ -1,9 +1,7 @@
+/* let game */
 const game = new Game();
-//const menu = new Menu()
+/* const menu = new Menu() */
 
-function preload() {
-  //  game.player.preload();
-}
 
 function setup() {
   createCanvas(1000, 780);
@@ -15,8 +13,10 @@ function draw() {
   /* if (frameCount % 200 === 0) {
     wakeUpServer()
   } */
-
-  game.draw();
+  /* menu.draw() */
+  if (game) {
+    game.draw();
+  }
 }
 
 function keyPressed() {

@@ -6,34 +6,68 @@ class Square {
     this.height = 100;
     this.color = color;
 
-    this.heartActivated = false
+    this.lightGuardedColor = [245, 245, 220] // [245, 245, 220]
+    this.darkGuardedColor = [222, 184, 135] // [222, 184, 135]
+
+    this.iAmLightSquared = JSON.stringify(this.color) === JSON.stringify(this.lightGuardedColor)
+
+    this.guardedTile = false
+
+
   }
   draw() {
-    fill(this.color);
-    rect(this.x, this.y, this.width, this.height);
-    if (this.heartActivated) {
-      this.heart()
+    if (this.guardedTile) {
+      if (this.iAmLightSquared) {
+        fill(this.lightGuardedColor)
+      } else {
+        fill(this.darkGuardedColor)
+      }
     }
+    else {
+      fill(this.color);
+    }
+    rect(this.x, this.y, this.width, this.height);
+
     /* debug */
     /* textSize(10);
     fill('red');
     text(`x:${this.x / 100} y:${this.y / 100}`, this.x, this.y + 75); */
   }
-  heart() {
-    const s = 40;
-    for (let x = 0; x < this.width; x++) {
-      for (let y = 0; y < this.height; y++) {
-        fill(2 * x, 127, 0);
-        drawHeart(this.x + 50, this.y + 30, s);
-      }
+
+  blinkSquare() {
+    this.guardedTile = true
+    this.changeRedColor()
+    setTimeout(() => {
+      this.guardedTile = false
+    }, 500);
+  }
+  changeRedColor() {
+    if (this.iAmLightSquared) {
+      let g = 195
+      let b = 170
+      const lightInterval = setInterval(() => {
+        g += 1
+        b += 1
+        this.lightGuardedColor = [245, g, b]
+        if (g >= 220) {
+          clearInterval(lightInterval)
+          this.lightGuardedColor = [245, 245, 220]
+        }
+      }, 1);
+    } else {
+      let g = 134
+      let b = 85
+
+      const darkInterval = setInterval(() => {
+        g += 1
+        b += 1
+        this.darkGuardedColor = [222, g, b]
+        if (g >= 165) {
+          clearInterval(darkInterval)
+          this.darkGuardedColor = [222, 184, 135]
+        }
+      }, 1);
     }
   }
 }
 
-function drawHeart(x, y, size) {
-  beginShape();
-  vertex(x, y);
-  bezierVertex(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
-  bezierVertex(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
-  endShape(CLOSE);
-}

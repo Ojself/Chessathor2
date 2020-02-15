@@ -3,16 +3,20 @@ class Game {
     this.currentLevel = 22
     this.squares = [];
     this.pieces = [];
+
     this.capturedPieces = []
+    this.totalCapturedPieces = []
+
     this.moveHistory = []
     this.background = new Background('black');
     this.player;
 
     this.session;
     this.checks = 0
+    this.totalChecks = 0
 
     this.hud = new Hud()
-    
+
 
     this.check = {
       checked: false,
@@ -60,21 +64,22 @@ class Game {
     this.pieces.forEach((p, i) => {
       if (this.captureCheck(p, this.player) && p.name !== 'goal') {
         this.handleCapture(p, this.player)
-
       }
     })
     this.player.draw()
 
     if (this.check.checked) {
       textSize(32)
-      fill('red')
+      fill('tomato')
       text('CHECK', this.check.checkX, this.check.checkY)
     }
-    
+
   }
 
   handleCheckCollision(x, y) {
     this.player.knockBack()
+    this.hud.blinkCheck()
+    this.blinkTile(x, y)
     this.handleCheck(x, y)
   }
   handleCheck(x, y) {
@@ -82,13 +87,15 @@ class Game {
     let helper = 150
     this.check.checkX = x
     this.check.checkY = y
+    this.checks += 1
+    this.totalChecks += 1
     let checkInterval = setInterval(() => {
       this.check.checkY -= 0.15
       helper--
       if (helper < 0) {
         clearInterval(checkInterval)
         this.check.checked = false
-        this.checks += 1
+
       }
     }, 1);
   }
@@ -101,6 +108,8 @@ class Game {
     this.checks = 0
     this.player = null
     this.currentLevel += 1
+    this.hud.saveTime()
+    this.hud.timer = 15
     this.setup()
   }
 
@@ -128,9 +137,20 @@ class Game {
       return
     }
     this.capturedPieces.push(pieceId)
+    this.totalCapturedPieces.push(pieceId)
     p.handleDead()
+    this.hud.blinkCapture()
   }
-  
+  blinkTile(x, y) {
+    const trueX = x - 25
+    const trueY = y - 25
+    const checkSquare = this.squares.find(s => s.x === trueX && s.y === trueY)
+    checkSquare.blinkSquare()
+  }
+
+  stopGame() {
+    noLoop()
+  }
 }
 
 function getMapPiece(level, x, y) {
@@ -144,7 +164,7 @@ function getMapPiece(level, x, y) {
     B: new Bishop((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     N: new Knight((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     S: new Spikes((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
-    /* Q: new Queen((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`), */
+    Q: new Queen((y * 100) + 25, (x * 100) + 25, `${yNotation}${xNotation}`),
     A: new Player((y * 100) + 25, (x * 100) + 25, 'player')
   }
   return pieces[determinePiece]

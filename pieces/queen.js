@@ -9,41 +9,44 @@ class Queen {
         this.id = id // chess notation eg. E4
 
         this.expanding = false
-        this.dead = false // for when piece is flying off
+        this.dead = false
+
+        this.s = 100
     }
 
     setup() {
-        this.pawnImg = loadImage('../pics/bq.png');
+        this.queenImg = loadImage('../pics/bq.png');
     }
 
     draw() {
-        // debug helper
-        /* fill('red')
-        textSize(10)
-        text(`x:${this.x} y:${this.y}`, this.x, this.y)
-        text(this.id, this.x, this.y + 20) */
-
-        if (this.expanding) {
-            image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
-        } else {
-            image(this.pawnImg, this.x, this.y, this.width, this.height);
+        if (this.dead) { // drawns ending hearts
+            for (let x = 0; x < width - 200; x += this.s) {
+                for (let y = 0; y < height; y += this.s) {
+                    fill(800 * x / width, 127, 255);
+                    heart(x + this.s / 2, (y + this.s / 2) - 25, this.s / 2);
+                }
+            }
         }
+        image(this.queenImg, this.x, this.y, this.width, this.height);
 
     }
 
     collisionCheck(player) {
-        if (this.dead === false){return false}
-        // y axis
-        if (player.y >= this.y && player.y <= this.y  /* && player.isMoving === false */) {
-            // right square
+        if (this.dead === true) { return false }
+
+        if (player.y >= this.y && player.y <= this.y) {
+
             if (player.x >= this.x && player.x <= this.x) {
-                return true
+                console.log('a')
+
+
             }
-            // left square
             if (player.x >= this.x && player.x <= this.x) {
-                return true
+                console.log('q')
+
             }
         }
+
         return false
     }
     tempExpandImage() {
@@ -55,18 +58,24 @@ class Queen {
 
     handleDead() {
         this.dead = true
-        /* let deadHelper = 1000
-        const xRandom = Math.random() > 0.5 ? -1 : 1
-        const yRandom = Math.random() > 0.5 ? -1 : 1
-        let flyInterval = setInterval(() => {
-            this.x -= 5 * xRandom
-            this.y -= 5 * yRandom
-            this.width -= 0.2
-            this.height -= 0.2
-            deadHelper -= 1
-            if (deadHelper < 0) {
-                clearInterval(flyInterval)
-            }
-        }, 5); */
     }
+
+    heart() {
+        const s = 200;
+        for (x = 0; x < width; x += s) {
+            for (y = 0; y < height; y += s) {
+                fill(310 * x / width, 127, 255);
+                heart(x + s / 2, y + s / 2, s / 2);
+
+            }
+        }
+    }
+}
+function heart(x, y, size) {
+    beginShape();
+    vertex(x, y);
+    bezierVertex(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
+    bezierVertex(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
+    endShape(CLOSE);
+    game.stopGame()
 }

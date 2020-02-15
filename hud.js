@@ -1,78 +1,82 @@
 class Hud {
-    constructor(currentLevel = 3,captures=10,checks=8) {
-        this.checks = checks
-        this.captures = captures
+    constructor() {
         this.timer = 15
-        this.currentLevel = currentLevel
         this.blinkCheckText = false
         this.blinkCaptureText = false
+
+        this.timeHistory = []
     }
-    
+
     draw() {
-        textAlign(CENTER,CENTER)
-        this.drawTotalChecks() 
+        textAlign(CENTER, CENTER)
+        this.drawTotalChecks()
         this.drawTotalCaptures()
-        this.drawCurrentLevelAndCountDown() 
+        this.drawCurrentLevelAndCountDown()
         this.drawOldTimes()
     }
-    blinkCheck(){
+    blinkCheck() {
         this.blinkCheckText = true
         setTimeout(() => {
             this.blinkCheckText = false
-        }, 300);
+        }, 200);
     }
-    blinkCapture(){
+    blinkCapture() {
         this.blinkCaptureText = true
         setTimeout(() => {
             this.blinkCaptureText = false
-        }, 300);
+        }, 200);
     }
-    drawTotalChecks(){
-        if (this.blinkCheckText){
-            fill('red')
+    drawTotalChecks() {
+        if (this.blinkCheckText) {
+            textSize(18);
+            fill('tomato')
         } else {
+            textSize(15);
             fill('white')
         }
-        textSize(15);
-        text(`Checks ${this.checks}`,850, 20);
+        text(`Checks ${game.totalChecks}`, 850, 20);
         fill('white')
     }
 
-    drawTotalCaptures(){
-        if (this.blinkCaptureText){
+    drawTotalCaptures() {
+        if (this.blinkCaptureText) {
             fill('lime')
         } else {
             fill('white')
         }
         textSize(15);
-        text(`Captures ${this.captures}`,950, 20);
+        text(`Captures ${game.totalCapturedPieces.length}`, 950, 20);
         fill('white')
     }
 
-    drawCurrentLevelAndCountDown(){
+    drawCurrentLevelAndCountDown() {
         textSize(30);
-        text(`Level ${this.currentLevel}`,865, 115);
-    
+        text(`Level ${game.currentLevel}`, 865, 115);
+
         textSize(10);
-        text(`Time bonus`,960, 80);
-        
+        text(`Time bonus`, 960, 80);
+
         textSize(50);
-        text(`${this.timer}`,960, 115);
-    
-        if (frameCount % 60 == 0 && this.timer > 0) { 
-          this.timer -=1;
+        text(`${this.timer}`, 960, 115);
+
+        if (frameCount % 60 == 0 && this.timer > 0) {
+            this.timer -= 1;
         }
         /* if (this.timer === 0) {
           textSize(30);
           text("GAME OVER!", 900, 200);
         } */
     }
-    drawOldTimes(){
-        
-        ['5,93','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09','8,16','12,09'].forEach((t,i)=>{
+    saveTime() {
+        const timeFloats = frameCount.toString()
+        const twoLastDigits = timeFloats.substr(timeFloats.length - 2)
+        this.timeHistory.push(`${this.timer}:${twoLastDigits}`)
+    }
+    drawOldTimes() {
+        this.timeHistory.forEach((t, i) => {
             textAlign(LEFT)
             textSize(15);
-            text(`Level ${i}: ${t}`,820, 210+(i*25));
+            text(`Level ${i}: ${t}`, 820, 210 + (i * 25));
         })
     }
 }

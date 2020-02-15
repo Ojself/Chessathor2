@@ -32,15 +32,13 @@ class Spikes {
     }
 
     collisionCheck(player) {
-        // todo, this is still pawn collision
-        // y axis
-        if (player.y >= this.y && player.y <= this.y  /* && player.isMoving === false */) {
 
-            // right square
+        if (player.y >= this.y && player.y <= this.y) {
+
             if (player.x >= this.x && player.x <= this.x) {
                 return true
             }
-            // left square
+
             if (player.x >= this.x && player.x <= this.x) {
                 return true
             }

@@ -48,13 +48,17 @@ class Bishop {
     }
 
     collisionCheck(player) {
-        if (this.dead === true){return false}
+        if (this.dead === true) { return false }
+        if (player.isMoving) {
+            return false
+        }
         const downRight = checkCollidingDiagonal(player, this.x, this.y, 1, 1, this.id)
         const upRight = checkCollidingDiagonal(player, this.x, this.y, 1, -1, this.id)
 
         const downLeft = checkCollidingDiagonal(player, this.x, this.y, -1, 1, this.id)
         const upLeft = checkCollidingDiagonal(player, this.x, this.y, -1, -1, this.id)
         if (downRight || upRight || downLeft || upLeft) {
+
             return true
         }
         return false
@@ -65,7 +69,6 @@ class Bishop {
 function checkCollidingDiagonal(player, x, y, dirX, dirY, id) {
 
     for (let i = 0; i < 8 && checkCollidingWithBishop(x, y, i, dirX, dirY, id); i++) {
-
         const helperX = (100 * dirX) + x + i * 100 * dirX
         const helperY = (100 * dirY) + y + i * 100 * dirY
 

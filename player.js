@@ -10,6 +10,8 @@ class Player {
     this.lastMove;
     this.isMoving = false
 
+    this.lastCordinates = [0,0]
+
   }
 
   setup() {
@@ -26,8 +28,8 @@ class Player {
 
   // knocks back player when walking into 'check'
   knockBack() {
-    const knockBackDirection = getOppositeDirection(this.lastMove)
-    this.smoothMove(knockBackDirection[0], knockBackDirection[1])
+    this.x=this.lastCordinates[0]
+    this.y=this.lastCordinates[1]
   }
 
   move() {
@@ -89,6 +91,7 @@ class Player {
     if (this.isMoving || checkBorders(x, y, this.x, this.y)) {
       return
     }
+    this.lastCordinates=[this.x,this.y]
     this.isMoving = true
     game.moveHistory.push([x, y])
     let helperCounter = 0;
@@ -102,21 +105,6 @@ class Player {
       }
     }, 1);
   }
-}
-
-function getOppositeDirection(lastDirection) {
-  const oppositeDirection = {
-    northeast: [-1, 1],
-    eastsouth: [-1, -1],
-    westsouth: [1, -1],
-    westnorth: [1, 1],
-    north: [0, 1],
-    south: [0, -1],
-    west: [1, 0],
-    east: [-1, 0]
-  }
-  const xy = oppositeDirection[lastDirection]
-  return xy
 }
 
 function checkBorders(x, y, playerX, playerY) {
