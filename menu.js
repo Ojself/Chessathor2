@@ -1,15 +1,15 @@
 class Menu {
     constructor() {
-        this.highScore;
+        this.highScore = null
         this.serversOnline = false
     }
 
     draw() {
         background('black')
         textAlign(CENTER)
+        noStroke()
         this.drawTitle()
         this.drawStartGame()
-        this.drawHighScoreTitle()
         this.drawServerStatus()
         this.drawTutorial()
         this.checkMouseHover()
@@ -17,13 +17,9 @@ class Menu {
         if (!this.serversOnline && frameCount % 200 === 0) {
             wakeUpServer()
         }
-
         if (this.highScore) {
-
             this.drawHighScore()
         }
-
-
     }
     drawTitle() {
         textSize(50)
@@ -41,15 +37,7 @@ class Menu {
         }
         text('START GAME', 500, 300)
     }
-    drawHighScoreTitle() {
-        textSize(40)
-        if (this.serversOnline) {
-            fill('white')
-        } else {
-            fill('grey')
-        }
-        text('HIGHSCORE', 500, 400)
-    }
+
 
     drawServerStatus() {
         let dot = frameCount % 60 > 30 ? '.' : '..'
@@ -94,9 +82,12 @@ class Menu {
         line(680, 230, 680, 330);
         line(680, 330, 320, 330);
         line(320, 330, 320, 230);
+        noStroke()
     }
 
     drawHighScore() {
+        textSize(40)
+        text('HIGHSCORE', 500, 400)
 
         if (this.highScore && this.highScore.cheaters.length) {
             //  console.log('cheaters')
@@ -107,16 +98,22 @@ class Menu {
         }
     }
     drawRealPlayers(players) {
+        textAlign(LEFT)
         fill('white')
         textSize(20)
         text('NAME', 100, 450)
         text('SCORE', 220, 450)
         text('TIME', 340, 450)
         text('CAPTURES', 460, 450)
-        text('DATE', 580, 450)
+        text('DATE', 620, 450)
         players.forEach((p, i) => {
             textSize(15)
-            text(i + 1, 75, 500 + (35 * i))
+            // fade colors here
+            let r = 200 - (i * 20)
+            let g = 255 - (i * 25)
+            let b = 210 - (i * 5)
+            fill(r, g, b);
+            text(i + 1, 70, 500 + (35 * i))
             text(p.name, 100, 500 + (35 * i))
             text(p.score, 220, 500 + (35 * i))
             text(p.timeUsed, 340, 500 + (35 * i))
@@ -129,11 +126,4 @@ class Menu {
 
 }
 
-function mouseClicked() {
-    if (menu.checkMouseHover()) {
-        console.log('Start Game!')
-    }
 
-    // prevent default
-    return false;
-}

@@ -3,45 +3,43 @@
 //
 function wakeUpServer() {
     axios.get('http://localhost:3200/wakeup')
-        .then(function (response) {
+        .then((response) => {
             if (response.statusText === "OK") {
-                menu.serversOnline = true
-                menu.highScore = response.data.highScore
-                console.log(response)
+                game.menu.serversOnline = true
+                game.menu.highScore = response.data.highScore
             }
         })
-        .catch(function (error) {
-            console.log(error)
+        .catch((error) => {
+            console.error(error)
         });
 }
 
 // create instance and save id in clientside
 function startGame() {
-    fetch('/startGame', { method: 'POST' })
+    axios.post('http://localhost:3200/startGame')
         .then((response) => {
-            if (response.ok) {
-                console.log(response, 'response')
-                return response.json()
+            console.log(response, 'response')
+            if (response.statusText === "OK") {
+                game.gameStarted = true
+                game.playerName = response.data.name
             }
-            throw new Error('Request failed.');
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch((error) => {
+            console.error(error)
         });
 }
 
 
 function levelComplete(data) {
-    fetch('/updateStats', { method: 'PUT', body: data })
+    axios.put('http://localhost:3200/updateStats', data)
         .then((response) => {
-            if (response.ok) {
-                console.log(response, 'response')
-                return response.json()
+            console.log(response, 'response')
+            if (response.statusText === "OK") {
+                console.log('OK')
             }
-            throw new Error('Request failed.');
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch((error) => {
+            console.error(error)
         });
 }
 

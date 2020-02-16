@@ -37,12 +37,12 @@ class Queen {
         if (player.y >= this.y && player.y <= this.y) {
 
             if (player.x >= this.x && player.x <= this.x) {
-                console.log('a')
+
 
 
             }
             if (player.x >= this.x && player.x <= this.x) {
-                console.log('q')
+
 
             }
         }
@@ -77,5 +77,6 @@ function heart(x, y, size) {
     bezierVertex(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
     bezierVertex(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
     endShape(CLOSE);
+
     game.stopGame()
 }

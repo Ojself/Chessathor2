@@ -1,27 +1,43 @@
-let game
-/* const game = new Game(); */
-const menu = new Menu()
+
+const game = new Game();
 
 
 function setup() {
   createCanvas(1000, 780);
-  /* game.setup(); */
+  game.setup();
 }
 
 function draw() {
-
-  /* if (frameCount % 200 === 0) {
-    wakeUpServer()
-  } */
-  menu.draw()
-  if (game) {
-    game.draw();
-  }
+  game.draw();
 }
 
 function keyPressed() {
   if (keyCode < 41 && keyCode > 36) {
     game.player.move()
   }
+  if (game.gameOver) {
+    game.hud.enterName(key, keyCode)
+  }
   return false; // prevent any default behaviour
+}
+
+function mouseClicked() {
+
+  if (game.gameOver) {
+    if (game.hud.submitHover()) {
+      console.log('submit')
+      /* finalize() */
+    }
+  }
+
+  if (!game.gameStarted) {
+    if (game.menu.checkMouseHover()) {
+      startGame()
+    }
+  }
+
+
+
+  // prevent default
+  return false;
 }

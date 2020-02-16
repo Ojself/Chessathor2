@@ -5,6 +5,9 @@ class Hud {
         this.blinkCaptureText = false
 
         this.timeHistory = []
+        this.inputField = 'Yenchan'
+
+        this.submitted = false
     }
 
     draw() {
@@ -13,6 +16,12 @@ class Hud {
         this.drawTotalCaptures()
         this.drawCurrentLevelAndCountDown()
         this.drawOldTimes()
+        if (game.gameOver) {
+            this.drawInputField()
+        }
+        if (this.submitted) {
+            this.drawSubmitted()
+        }
     }
     blinkCheck() {
         this.blinkCheckText = true
@@ -50,6 +59,9 @@ class Hud {
     }
 
     drawCurrentLevelAndCountDown() {
+        if (game.gameOver) {
+            return
+        }
         textSize(30);
         text(`Level ${game.currentLevel}`, 865, 115);
 
@@ -79,4 +91,58 @@ class Hud {
             text(`Level ${i}: ${t}`, 820, 210 + (i * 25));
         })
     }
+
+    drawInputField() {
+        textAlign(LEFT)
+        fill('white')
+        textSize(20)
+        text('Enter name', 862, 80)
+
+        rect(830, 100, 180, 50)
+
+        fill('black')
+        textSize(25)
+        text(this.inputField, 840, 125) // max 9
+
+        fill('grey')
+        rect(863, 158, 104, 34)
+
+        fill('tomato')
+        rect(865, 160, 100, 30)
+
+        textSize(20)
+        fill('white')
+        text('SUBMIT!', 872, 175)
+    }
+    enterName(key, keyCode) {
+        if (keyCode === 8) { // backspace
+            this.inputField = this.inputField.slice(0, -1)
+        }
+        if (keyCode > 90 || keyCode < 47) {
+            return false
+        }
+        if (this.inputField.length > 9) {
+            return false
+        }
+
+        this.inputField += key
+
+    }
+    submitHover() {
+        if (mouseX > 870 && mouseX < 970) {
+            if (mouseY > 160 && mouseY < 190) {
+                console.log('lkasfkl')
+                /* this.submitted = true
+                return this.inputField */
+            }
+        }
+        return false
+    }
+    drawSubmitted() {
+        textSize(20)
+        fill('white')
+        text('Submitted!', 882, 475)
+    }
 }
+
+

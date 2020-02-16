@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.currentLevel = 22
+    this.currentLevel = 0
     this.squares = [];
     this.pieces = [];
 
@@ -11,17 +11,22 @@ class Game {
     this.background = new Background('black');
     this.player;
 
+    this.playerName;
     this.session;
     this.checks = 0
     this.totalChecks = 0
 
     this.hud = new Hud()
+    this.menu = new Menu()
 
     this.check = {
       checked: false,
       checkX: 200,
       checkY: 200
     }
+
+    this.gameOver = false
+    this.gameStarted = false
   }
 
   setup() {
@@ -47,32 +52,37 @@ class Game {
 
   }
   draw() {
-    this.background.draw()
-    this.hud.draw()
-    this.squares.forEach(el => {
-      el.draw();
-    });
-    this.pieces.forEach((p, i) => {
-      p.draw()
-      if (p.collisionCheck(this.player)) {
-        p.tempExpandImage()
-        this.handleCheckCollision(this.player.x, this.player.y)
-      }
+    if (!this.gameStarted) {
+      this.menu.draw()
+    } else {
 
-    })
-    this.pieces.forEach((p, i) => {
-      if (this.captureCheck(p, this.player) && p.name !== 'goal') {
-        this.handleCapture(p, this.player)
-      }
-    })
-    this.player.draw()
 
-    if (this.check.checked) {
-      textSize(32)
-      fill('tomato')
-      text('CHECK', this.check.checkX, this.check.checkY)
+      this.background.draw()
+      this.hud.draw()
+      this.squares.forEach(el => {
+        el.draw();
+      });
+      this.pieces.forEach((p, i) => {
+        p.draw()
+        if (p.collisionCheck(this.player)) {
+          p.tempExpandImage()
+          this.handleCheckCollision(this.player.x, this.player.y)
+        }
+
+      })
+      this.pieces.forEach((p, i) => {
+        if (this.captureCheck(p, this.player) && p.name !== 'goal') {
+          this.handleCapture(p, this.player)
+        }
+      })
+      this.player.draw()
+
+      if (this.check.checked) {
+        textSize(32)
+        fill('tomato')
+        text('CHECK', this.check.checkX, this.check.checkY)
+      }
     }
-
   }
 
   handleCheckCollision(x, y) {
@@ -100,6 +110,7 @@ class Game {
   }
 
   handleNewLevel() {
+    levelComplete({ capturedPieces: this.capturedPieces.length, moveHistory: this.moveHistory, checks: this.checks, time: this.hud.time, playerName: this.playerName })
     this.pieces = []
     this.squares = [];
     this.capturedPieces = []
@@ -148,7 +159,9 @@ class Game {
   }
 
   stopGame() {
-    noLoop()
+    this.gameOver = true
+    this.player.isMoving = true
+    //noLoop()
   }
 }
 
