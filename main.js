@@ -26,7 +26,7 @@ function mouseClicked() {
   if (game.gameOver) {
     if (game.hud.submitHover()) {
       console.log('submit')
-      /* finalize() */
+      finishGame(game.playerName, game.hud.inputField)
     }
   }
 

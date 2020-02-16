@@ -5,7 +5,7 @@ class Hud {
         this.blinkCaptureText = false
 
         this.timeHistory = []
-        this.inputField = 'Yenchan'
+        this.inputField = ''
 
         this.submitted = false
     }
@@ -103,16 +103,18 @@ class Hud {
         fill('black')
         textSize(25)
         text(this.inputField, 840, 125) // max 9
+        if (!this.submitted) {
+            fill('grey')
+            rect(863, 158, 104, 34)
 
-        fill('grey')
-        rect(863, 158, 104, 34)
+            fill('tomato')
+            rect(865, 160, 100, 30)
 
-        fill('tomato')
-        rect(865, 160, 100, 30)
 
-        textSize(20)
-        fill('white')
-        text('SUBMIT!', 872, 175)
+            textSize(20)
+            fill('white')
+            text('SUBMIT!', 872, 175)
+        }
     }
     enterName(key, keyCode) {
         if (keyCode === 8) { // backspace
@@ -131,9 +133,9 @@ class Hud {
     submitHover() {
         if (mouseX > 870 && mouseX < 970) {
             if (mouseY > 160 && mouseY < 190) {
-                console.log('lkasfkl')
-                /* this.submitted = true
-                return this.inputField */
+
+                this.submitted = true
+                return this.inputField
             }
         }
         return false
@@ -141,7 +143,7 @@ class Hud {
     drawSubmitted() {
         textSize(20)
         fill('white')
-        text('Submitted!', 882, 475)
+        text('Submitted!', 872, 175)
     }
 }
 

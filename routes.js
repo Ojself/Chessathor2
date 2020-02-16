@@ -43,17 +43,19 @@ function levelComplete(data) {
         });
 }
 
-function finishGame(data) {
-    fetch('/finishGame', { method: 'POST', body: data })
+function finishGame(playerName, newName) {
+    axios.put('http://localhost:3200/endGame', { playerName, newName })
         .then((response) => {
-            if (response.ok) {
-                console.log(response, 'response')
-                return response.json()
+            console.log(response, 'response')
+            if (response.statusText === "OK") {
+                console.log('OK')
             }
-            throw new Error('Request failed.');
         })
-        .catch(function (error) {
-            console.log(error);
+        .catch((error) => {
+
         });
+    setTimeout(() => {
+        window.location.href = "http://127.0.0.1:5500/index.html";
+    }, 3000);
 }
 

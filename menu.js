@@ -104,8 +104,9 @@ class Menu {
         text('NAME', 100, 450)
         text('SCORE', 220, 450)
         text('TIME', 340, 450)
-        text('CAPTURES', 460, 450)
-        text('DATE', 620, 450)
+        text('MOVES', 440, 450)
+        text('CAPTURES', 540, 450)
+        text('DATE', 680, 450)
         players.forEach((p, i) => {
             textSize(15)
             // fade colors here
@@ -113,17 +114,17 @@ class Menu {
             let g = 255 - (i * 25)
             let b = 210 - (i * 5)
             fill(r, g, b);
+            textAlign(LEFT)
             text(i + 1, 70, 500 + (35 * i))
             text(p.name, 100, 500 + (35 * i))
-            text(p.score, 220, 500 + (35 * i))
-            text(p.timeUsed, 340, 500 + (35 * i))
-            text(p.captures, 460, 500 + (35 * i))
-            text(p.dateCompleted.slice(0, -5), 620, 500 + (35 * i))
+            textAlign(CENTER)
+            text(p.score, 250, 500 + (35 * i))
+            text(p.timeUsed, 360, 500 + (35 * i))
+            text(p.moves, 470, 500 + (35 * i))
+            text(p.captures, 570, 500 + (35 * i))
+            text(p.dateCompleted.slice(0, -5), 720, 500 + (35 * i))
         })
     }
-
-
-
 }
 
 

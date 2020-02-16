@@ -2,10 +2,14 @@
 
 TODO
 
-Fix fetch functions with hash strings
+Add sounds
 
-Fix backend
+Set sounds
 
-Fix Highscore
+Fix image size
 
-Fix Menu
+Show finalscore?
+
+Deploy
+
+Only send 10 best players from server
