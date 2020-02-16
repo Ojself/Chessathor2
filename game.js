@@ -17,7 +17,6 @@ class Game {
 
     this.hud = new Hud()
 
-
     this.check = {
       checked: false,
       checkX: 200,

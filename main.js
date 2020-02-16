@@ -1,11 +1,11 @@
-/* let game */
-const game = new Game();
-/* const menu = new Menu() */
+let game
+/* const game = new Game(); */
+const menu = new Menu()
 
 
 function setup() {
   createCanvas(1000, 780);
-  game.setup();
+  /* game.setup(); */
 }
 
 function draw() {
@@ -13,7 +13,7 @@ function draw() {
   /* if (frameCount % 200 === 0) {
     wakeUpServer()
   } */
-  /* menu.draw() */
+  menu.draw()
   if (game) {
     game.draw();
   }
