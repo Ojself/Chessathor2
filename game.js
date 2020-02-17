@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.currentLevel = 5
+    this.currentLevel = 0
     this.squares = [];
     this.pieces = [];
 
@@ -210,6 +210,6 @@ function sound(src) {
   }
 
   this.stop = function () {
-    this.sound.pause();
+    this.sound.stop();
   }
 }
