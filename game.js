@@ -196,7 +196,6 @@ function determineSquareColor(row, col) {
   }
   return color ? color : 'red';
 }
-
 /* https://www.w3schools.com/graphics/game_sound.asp */
 function sound(src) {
   this.sound = document.createElement("audio");
