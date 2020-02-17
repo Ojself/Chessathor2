@@ -12,3 +12,5 @@ Todo:
 - Find better pics that are not blurry
 
 - Prettify Menu/HUD texts
+
+- Add favicon
