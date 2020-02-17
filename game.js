@@ -164,7 +164,7 @@ class Game {
   stopGame() {
     this.gameOver = true
     this.player.isMoving = true
-    this.music.pause()
+    this.music.stop()
     //noLoop()
   }
 }
@@ -210,6 +210,6 @@ function sound(src) {
   }
 
   this.stop = function () {
-    this.sound.stop();
+    this.sound.pause();
   }
 }
