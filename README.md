@@ -4,7 +4,11 @@ Known bugs:
 
 - If player taps too fast, checks and captures *can* be ignored.
 
-- Score can be spoofed with some creative reverse engineering of api.
+- Endpoints are fragile
+
+- Moves is not being calculated
+
+- Flags are wrong
 
 Todo:
 - Add screencaps / gif to github
@@ -15,4 +19,12 @@ Todo:
 
 - Add favicon
 
-- Weight score calculation better 
+- Weight score calculation better
+
+
+Features wanted from community:
+- Display possibility for moving diagonally
+
+- Possibility to user-created maps
+
+- Harder puzzles
