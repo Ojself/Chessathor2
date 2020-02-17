@@ -15,7 +15,7 @@ class Queen {
     }
 
     setup() {
-        this.queenImg = loadImage('../pics/bq.png');
+        this.queenImg = loadImage('assets/bq.png');
     }
 
     draw() {

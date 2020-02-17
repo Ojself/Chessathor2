@@ -15,7 +15,7 @@ class Player {
   }
 
   setup() {
-    this.playerImg = loadImage('pics/bk.png');
+    this.playerImg = loadImage('assets/bk.png');
   }
   draw() {
     image(this.playerImg, this.x - 15, this.y - 15, this.width + 30, this.height + 30);

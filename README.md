@@ -14,3 +14,5 @@ Todo:
 - Prettify Menu/HUD texts
 
 - Add favicon
+
+- Weight score calculation better 

@@ -9,7 +9,7 @@ class Menu {
         if (this.highScore && this.highScore.realPlayers) {
             console.log(this.highScore)
             this.highScore.realPlayers.forEach((p, i) => {
-                this.flags[i] = loadImage(`../pics/flags/${p.countryFlag.slice(- 9)}`)
+                this.flags[i] = loadImage(`assets/flags/${p.countryFlag.slice(- 9)}`)
             })
         }
     }

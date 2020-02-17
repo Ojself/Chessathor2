@@ -12,7 +12,7 @@ class Bishop {
     }
 
     setup() {
-        this.bishopImg = loadImage('../pics/wb.png');
+        this.bishopImg = loadImage('assets//wb.png');
     }
 
     draw() {

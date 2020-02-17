@@ -13,7 +13,7 @@ class Spikes {
     }
 
     setup() {
-        this.spikeImg = loadImage('../pics/spikes.png');
+        this.spikeImg = loadImage('assets/spikes.png');
     }
 
     draw() {

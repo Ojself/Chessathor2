@@ -9,7 +9,7 @@ class FinishTile {
   }
 
   setup() {
-    this.goalImg = loadImage('pics/goalTile.png');
+    this.goalImg = loadImage('assets/goalTile.png');
   }
 
   draw() {
