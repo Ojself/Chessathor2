@@ -43,7 +43,7 @@ class Knight {
         if (this.expanding) {
             image(this.knightImage, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
         } else {
-            image(this.knightImage, this.x, this.y, this.width, this.height);
+            image(this.knightImage, this.x - 15, this.y - 15, this.width + 30, this.height + 30);
         }
     }
 

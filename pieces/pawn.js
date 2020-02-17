@@ -26,7 +26,7 @@ class Pawn {
         if (this.expanding) {
             image(this.pawnImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
         } else {
-            image(this.pawnImg, this.x, this.y, this.width, this.height);
+            image(this.pawnImg, this.x - 15, this.y - 15, this.width + 30, this.height + 30);
         }
 
     }

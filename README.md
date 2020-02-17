@@ -1,15 +1,14 @@
 # Chessathor 2.0
 
-TODO
+Known bugs:
 
-Add sounds
+- If player taps too fast, checks and captures *can* be ignored.
 
-Set sounds
+- Score can be spoofed with some creative reverse engineering of api.
 
-Fix image size
+Todo:
+- Add screencaps / gif to github
 
-Show finalscore?
+- Find better pics that are not blurry
 
-Deploy
-
-Only send 10 best players from server
+- Prettify Menu/HUD texts

@@ -27,7 +27,7 @@ class Queen {
                 }
             }
         }
-        image(this.queenImg, this.x, this.y, this.width, this.height);
+        image(this.queenImg, this.x - 15, this.y - 15, this.width + 30, this.height + 30);
 
     }
 

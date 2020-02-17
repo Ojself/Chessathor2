@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.currentLevel = 0
+    this.currentLevel = 5
     this.squares = [];
     this.pieces = [];
 
@@ -12,7 +12,6 @@ class Game {
     this.player;
 
     this.playerName;
-    this.session;
     this.checks = 0
     this.totalChecks = 0
 
@@ -27,6 +26,8 @@ class Game {
 
     this.gameOver = false
     this.gameStarted = false
+
+    this.music = new sound("./utils/music2.mp3")
   }
 
   setup() {
@@ -90,6 +91,7 @@ class Game {
     this.hud.blinkCheck()
     this.blinkTile(x, y)
     this.handleCheck(x, y)
+    aa.play('check') // audio
   }
   handleCheck(x, y) {
     this.check.checked = true
@@ -146,6 +148,7 @@ class Game {
     if (this.capturedPieces.indexOf(pieceId) > -1) {
       return
     }
+    aa.play('capture')
     this.capturedPieces.push(pieceId)
     this.totalCapturedPieces.push(pieceId)
     p.handleDead()
@@ -161,6 +164,7 @@ class Game {
   stopGame() {
     this.gameOver = true
     this.player.isMoving = true
+    this.music.pause()
     //noLoop()
   }
 }
@@ -180,4 +184,33 @@ function getMapPiece(level, x, y) {
     A: new Player((y * 100) + 25, (x * 100) + 25, 'player')
   }
   return pieces[determinePiece]
+}
+
+function determineSquareColor(row, col) {
+  let color;
+  if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
+    color = [245, 245, 220]//'#f5f5dc' // light
+  }
+  if ((row % 2 == 0 && col % 2 == 1) || (row % 2 == 1 && col % 2 == 0)) {
+    color = [222, 184, 135] //'#deb887' // dark
+  }
+  return color ? color : 'red';
+}
+
+/* https://www.w3schools.com/graphics/game_sound.asp */
+function sound(src) {
+  this.sound = document.createElement("audio");
+  this.sound.src = src;
+  this.sound.setAttribute("preload", "auto");
+  this.sound.setAttribute("controls", "none");
+  this.sound.style.display = "none";
+  document.body.appendChild(this.sound);
+
+  this.play = function () {
+    this.sound.play();
+  }
+
+  this.stop = function () {
+    this.sound.pause();
+  }
 }

@@ -20,7 +20,7 @@ class Rook {
         if (this.expanding) {
             image(this.rookImg, this.x - 10, this.y - 10, this.width + 20, this.height + 20);
         } else {
-            image(this.rookImg, this.x, this.y, this.width, this.height);
+            image(this.rookImg, this.x - 15, this.y - 15, this.width + 30, this.height + 30);
         }
 
     }
@@ -52,7 +52,7 @@ class Rook {
     }
 
     collisionCheck(player) {
-        if (this.dead === true){return false}
+        if (this.dead === true) { return false }
         const down = checkCollidingStraight(player, this.x, this.y, -1, true, this.id)
         const up = checkCollidingStraight(player, this.x, this.y, 1, true, this.id)
         const left = checkCollidingStraight(player, this.x, this.y, 1, false, this.id)
