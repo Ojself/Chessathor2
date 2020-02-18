@@ -94,6 +94,7 @@ class Player {
     this.lastCordinates = [this.x, this.y]
     this.isMoving = true
     game.moveHistory.push([x, y])
+    game.totalMoveHistory.push([x, y])
     let moveIntervalHelper = 0;
     aa.play('move') // audio
     let moveInterval = setInterval(() => {

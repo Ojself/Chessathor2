@@ -8,6 +8,7 @@ class Game {
     this.totalCapturedPieces = []
 
     this.moveHistory = []
+    this.totalMoveHistory = []
     this.background = new Background('black');
     this.player;
 

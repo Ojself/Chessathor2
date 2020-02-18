@@ -14,6 +14,7 @@ class Hud {
     draw() {
         textAlign(CENTER, CENTER)
         this.drawTotalChecks()
+        this.drawTotalMoves()
         this.drawTotalCaptures()
         this.drawCurrentLevelAndCountDown()
         this.drawOldTimes()
@@ -45,6 +46,13 @@ class Hud {
             fill('white')
         }
         text(`Checks ${game.totalChecks}`, 850, 20);
+        fill('white')
+    }
+
+    drawTotalMoves() {
+        textSize(15);
+        fill('white')
+        text(`Moves ${game.totalMoveHistory.length}`, 900, 40);
         fill('white')
     }
 

@@ -1,7 +1,7 @@
-// if local -> http://localhost:3200/ENDPOINT
-// if deployed -> http://chessathorserver.herokuapp.com/ENDPOINT
+
+const baseurl = window.location.href === "http://chessathor2.flesjoe.com/" ? 'http://chessathorserver.herokuapp.com' : 'http://localhost:3200'
 function wakeUpServer() {
-    axios.get('http://chessathorserver.herokuapp.com/wakeup')
+    axios.get(`${baseurl}/wakeup`)
         .then((response) => {
             if (response.statusText === "OK") {
                 game.menu.serversOnline = true
@@ -16,7 +16,7 @@ function wakeUpServer() {
 
 // create player instance and save id in clientside
 function startGame() {
-    axios.post('http://chessathorserver.herokuapp.com/startGame') // todo, change out URL with heroku server
+    axios.post(`${baseurl}/startGame`) // todo, change out URL with heroku server
         .then((response) => {
             if (response.statusText === "OK") {
                 game.gameStarted = true
@@ -31,7 +31,7 @@ function startGame() {
 
 
 function levelComplete(data) {
-    axios.put('http://chessathorserver.herokuapp.com/updateStats', data)
+    axios.put(`${baseurl}/updateStats`, data)
         .then((response) => {
             if (response.statusText === "OK") {
                 console.log('OK')
@@ -43,7 +43,7 @@ function levelComplete(data) {
 }
 
 function finishGame(playerName, newName) {
-    axios.put('http://chessathorserver.herokuapp.com/endGame', { playerName, newName })
+    axios.put(`${baseurl}/endGame`, { playerName, newName })
         .then((response) => {
             if (response.statusText === "OK") { // todo, display final score for user when submit
                 game.hud.finalScore = response.data.player.score || 0
