@@ -6,9 +6,9 @@ Known bugs:
 
 - Endpoints are fragile
 
-- Moves is not being calculated
+- Diagonally movements are unclear and slow
 
-- Flags are wrong
+- Bottom part of tiles are not showing / sliced out of browser
 
 Todo:
 - Add screencaps / gif to github
