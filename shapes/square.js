@@ -1,5 +1,5 @@
 class Square {
-  constructor(x, y, color) {
+  constructor(x, y, color, shade) {
     this.x = x;
     this.y = y;
     this.width = 100;
@@ -9,7 +9,7 @@ class Square {
     this.lightGuardedColor = [245, 245, 220]
     this.darkGuardedColor = [222, 184, 135]
 
-    this.iAmLightSquared = JSON.stringify(this.color) === JSON.stringify(this.lightGuardedColor)
+    this.iAmLightSquared = shade === 'light'
     this.guardedTile = false
   }
   draw() {
