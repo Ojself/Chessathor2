@@ -113,7 +113,7 @@ class Game {
   }
 
   handleNewLevel() {
-    levelComplete({ capturedPieces: this.capturedPieces.length, moveHistory: this.moveHistory, checks: this.checks, time: this.hud.time, playerName: this.playerName })
+    levelComplete({ capturedPieces: this.capturedPieces.length, moveHistory: this.moveHistory, checks: this.checks, time: this.hud.time, playerName: this.playerName, currentLevel: this.currentLevel })
     this.pieces = []
     this.squares = [];
     this.capturedPieces = []
