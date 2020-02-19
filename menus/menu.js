@@ -7,7 +7,6 @@ class Menu {
 
     preloadImages() {
         if (this.highScore) {
-            console.log(this.highScore)
             this.highScore.forEach((p, i) => {
                 this.flags[i] = loadImage(`assets/flags/${p.countryFlag.slice(- 9)}`)
             })
@@ -20,11 +19,9 @@ class Menu {
         this.drawTitle()
         this.drawStartGame()
         this.drawServerStatus()
-        //this.drawTutorial()
         this.checkMouseHover()
 
         if (!this.serversOnline && frameCount % 200 === 0) {
-
             wakeUpServer()
         }
         if (this.highScore) {
@@ -73,13 +70,6 @@ class Menu {
         }
         fill('white')
         textAlign(CENTER)
-    }
-    drawTutorial() {
-        textSize(15)
-        text('When in game:', 880, 240)
-        textSize(25)
-        text('Use arrow keys', 880, 280)
-        text('to move!', 880, 310)
     }
 
     checkMouseHover() {

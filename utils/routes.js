@@ -34,7 +34,7 @@ function levelComplete(data) {
     axios.put(`${baseurl}/updateStats`, data)
         .then((response) => {
             if (response.statusText === "OK") {
-                if (response.data.player.cheater === true) {
+                if (response.data.cheater === true) {
                     return goBackToHomePage()
                 }
                 console.log('OK')
@@ -49,15 +49,11 @@ function finishGame(playerName, newName) {
     axios.put(`${baseurl}/endGame`, { playerName, newName })
         .then((response) => {
             if (response.statusText === "OK") { // todo, display final score for user when submit
-                if (response.data.player.cheater === true) {
-                    game.hud.finalScore = 'CHEATER!'
-                } else {
-                    game.hud.finalScore = response.data.player.score || 0
-                }
+                game.hud.finalScore = response.data.player.score || 0
             }
         })
         .catch((error) => {
-
+            console.log('error:', error)
         });
     goBackToHomePage()
 

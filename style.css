@@ -3,3 +3,11 @@ body {
   display:flex;
   justify-content: center
 }
+#mobileMessage {
+  color:white;
+  display:none
+}
+@media screen and  (max-width: 500px) {
+  .p5Canvas { display: none; }   
+  #mobileMessage { display: block; }   
+}

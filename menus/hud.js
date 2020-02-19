@@ -179,13 +179,13 @@ class Hud {
             textSize(15)
             text('to move', 925, 575)
         }
-        if (level === 4) {
+        if (level === 4 && game.capturedPieces.length < 3) {
             fill('tomato')
             textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
             text('TRY CAPTURING', 920, 550)
             text('SOME PIECES', 920, 575)
         }
-        if (level === 5) {
+        if (level === 5 && game.player.y > 325) {
             fill('tomato')
             textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
             text('TRY MOVING', 920, 550)
