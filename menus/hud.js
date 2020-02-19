@@ -24,6 +24,9 @@ class Hud {
         if (this.submitted) {
             this.drawSubmitted()
         }
+        if ([0, 4, 5].includes(game.currentLevel)) {
+            this.drawHotTips(game.currentLevel)
+        }
     }
     blinkCheck() {
         this.blinkCheckText = true
@@ -108,6 +111,11 @@ class Hud {
         fill('black')
         textSize(25)
         text(this.inputField, 840, 125) // max 9
+
+        if (frameCount % 60 < 30 && this.inputField.length < 1) {
+            rect(835, 105, 5, 40);
+        }
+
         if (!this.submitted) {
             fill('grey')
             rect(863, 158, 104, 34)
@@ -149,6 +157,48 @@ class Hud {
         text('Submitted!', 872, 175)
         text(`Score: ${this.finalScore}`, 885, 195)
     }
+    drawHotTips(level) {
+        textAlign(CENTER)
+
+        fill('white')
+        if (level === 0) {
+            fill('white')
+            textSize(10)
+            text('Use ', 925, 475)
+            fill('tomato')
+            textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
+            text('W - A - S - D', 925, 500)
+            fill('white')
+            textSize(15)
+            text('or', 925, 525)
+            fill('tomato')
+            textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
+            text('ARROW KEYS', 925, 550)
+
+            fill('white')
+            textSize(15)
+            text('to move', 925, 575)
+        }
+        if (level === 4) {
+            fill('tomato')
+            textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
+            text('TRY CAPTURING', 920, 550)
+            text('SOME PIECES', 920, 575)
+        }
+        if (level === 5) {
+            fill('tomato')
+            textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
+            text('TRY MOVING', 920, 550)
+            text('DIAGONALLY', 920, 575)
+            textSize(15)
+            fill('white')
+            text(`Hint: 'q' or 'e'`, 920, 625)
+            text(`or arrow keys`, 920, 640)
+        }
+    }
 }
 
+const pulseMyText = (textSize = 9, frameCount) => {
+    return (frameCount % textSize) + (textSize / 2)
+}
 

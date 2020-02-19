@@ -33,6 +33,7 @@ class Game {
 
   setup() {
     this.background.setup();
+
     for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 8; j++) {
         const newPiece = getMapPiece(this.currentLevel, i, j)
@@ -113,7 +114,7 @@ class Game {
   }
 
   handleNewLevel() {
-    levelComplete({ capturedPieces: this.capturedPieces.length, moveHistory: this.moveHistory, checks: this.checks, time: this.hud.time, playerName: this.playerName, currentLevel: this.currentLevel })
+    levelComplete({ capturedPieces: this.capturedPieces.length, moveHistory: this.moveHistory, checks: this.checks, timer: this.hud.timer, playerName: this.playerName, currentLevel: this.currentLevel })
     this.pieces = []
     this.squares = [];
     this.capturedPieces = []

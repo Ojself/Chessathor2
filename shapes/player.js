@@ -7,11 +7,9 @@ class Player {
     this.name = name
     this.tempMove = [];
 
-    this.lastMove;
     this.isMoving = false
 
     this.lastCordinates = [0, 0]
-
   }
 
   setup() {
@@ -33,23 +31,41 @@ class Player {
   }
 
   move() {
-    this.tempMove.push(keyCode);
+
     let direction;
-    const directions = {
-      38: 'north',
+    const arrowDirections = {
+      38: 'north', // Arrow keys
       40: 'south',
       37: 'west',
       39: 'east'
     };
 
+    const WASDdirections = { // WASD QEZCX
+      87: 'north',
+      65: 'west',
+      68: 'east',
+      83: 'south', // S
+      88: 'south', // X
+      69: 'northeast',
+      81: 'westnorth',
+      90: 'westsouth',
+      67: 'eastsouth',
+    }
+    if (keyCode > 40) {
+      direction = WASDdirections[keyCode]
+      this.movePlayer(direction)
+      return
+    }
+
+    this.tempMove.push(keyCode);
     if (this.tempMove.length === 2) {
       this.tempMove.sort()
-      direction = `${directions[this.tempMove[0]]}${directions[this.tempMove[1]]}`
+      direction = `${arrowDirections[this.tempMove[0]]}${arrowDirections[this.tempMove[1]]}`
       this.tempMove = [];
       this.movePlayer(direction);
     } else {
       setTimeout(() => {
-        direction = directions[this.tempMove[0]];
+        direction = arrowDirections[this.tempMove[0]];
         if (direction) {
           this.movePlayer(direction);
         }
@@ -59,7 +75,7 @@ class Player {
   }
 
   movePlayer(direction) {
-    this.lastMove = direction
+
     switch (direction) {
       case 'northeast':
         this.smoothMove(1, -1);

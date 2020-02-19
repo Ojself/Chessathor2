@@ -6,9 +6,9 @@ class Menu {
     }
 
     preloadImages() {
-        if (this.highScore && this.highScore.realPlayers) {
+        if (this.highScore) {
             console.log(this.highScore)
-            this.highScore.realPlayers.forEach((p, i) => {
+            this.highScore.forEach((p, i) => {
                 this.flags[i] = loadImage(`assets/flags/${p.countryFlag.slice(- 9)}`)
             })
         }
@@ -20,7 +20,7 @@ class Menu {
         this.drawTitle()
         this.drawStartGame()
         this.drawServerStatus()
-        this.drawTutorial()
+        //this.drawTutorial()
         this.checkMouseHover()
 
         if (!this.serversOnline && frameCount % 200 === 0) {
@@ -42,12 +42,14 @@ class Menu {
         if (this.serversOnline) {
             fill('white')
             textSize(10)
-            text('click to', 500, 260)
+            text('click to', 500, 250)
+            textSize(map(sin(frameCount * 0.01), -10, 1, 100, 50));
         } else {
             fill('grey')
+            textSize(50)
         }
 
-        textSize(50)
+
         text('START GAME', 500, 300)
     }
 
@@ -91,10 +93,10 @@ class Menu {
     }
     hoverStartGame() {
         stroke(500);
-        line(320, 230, 680, 230);
-        line(680, 230, 680, 330);
-        line(680, 330, 320, 330);
-        line(320, 330, 320, 230);
+        line(310, 230, 690, 230);
+        line(690, 230, 690, 330);
+        line(690, 330, 310, 330);
+        line(310, 330, 310, 230);
         noStroke()
     }
 
@@ -102,11 +104,8 @@ class Menu {
     drawHighScore() {
         textSize(40)
         text('HIGHSCORE', 500, 400)
-        if (this.highScore && this.highScore.cheaters.length) {
-            //  console.log('cheaters')
-        }
-        if (this.highScore && this.highScore.realPlayers.length) {
-            this.drawRealPlayers(this.highScore.realPlayers)
+        if (this.highScore) {
+            this.drawRealPlayers(this.highScore)
         }
     }
     drawRealPlayers(players) {

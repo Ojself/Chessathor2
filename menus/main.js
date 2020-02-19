@@ -9,12 +9,16 @@ function draw() {
   game.draw();
 }
 
+const allowedMovementKeys = [37, 38, 39, 40, 41, 65, 67, 68, 69, 81, 83, 87, 88, 90]
 function keyPressed() {
-  if (keyCode < 41 && keyCode > 36) {
-    game.player.move()
-  }
+
   if (game.gameOver) {
     game.hud.enterName(key, keyCode)
+  } else if (allowedMovementKeys.includes(keyCode)) {
+    game.player.move()
+  }
+  if (!game.gameStarted && game.menu.serversOnline && keyCode === 13) { // hit enter to start game
+    startGame()
   }
   return false; // prevent any default behaviour
 }

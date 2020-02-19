@@ -22,7 +22,7 @@ class Queen {
         if (this.dead) { // drawns ending hearts
             for (let x = 0; x < width - 200; x += this.s) {
                 for (let y = 0; y < height; y += this.s) {
-                    fill(800 * x / width, 127, 255);
+                    fill(800 * x / width, 120 * y / height, 255);
                     heart(x + this.s / 2, (y + this.s / 2) - 25, this.s / 2);
                 }
             }
