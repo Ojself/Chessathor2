@@ -1,16 +1,17 @@
 # Chessathor 2.0
 
-Known bugs:
+[Play](http://chessathor2.flesjoe.com/)
+
+## Known bugs
 
 - If player taps too fast, checks and captures *can* be ignored.
 
 - Endpoints are fragile
 
-- Diagonally movements are unclear and slow
+- Diagonally movements are unclear and slow when using arrow keys
 
-- Bottom part of tiles are not showing / sliced out of browser
+## Todo
 
-Todo:
 - Add screencaps / gif to github
 
 - Find better pics that are not blurry
@@ -21,9 +22,9 @@ Todo:
 
 - Weight score calculation better
 
+## Features wanted from community
 
-Features wanted from community:
-- Display possibility for moving diagonally
+- Display possibility for moving diagonally (Done)
 
 - Possibility to user-created maps
 

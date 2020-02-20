@@ -296,6 +296,7 @@ const maps = [
   ]
 
 */
+/* Code below helps creating randomness to maps. only a tiny bit */
 const level2Random = Math.floor(Math.random() * 8)
 maps[2][3][level2Random] = 'P'
 
@@ -336,12 +337,12 @@ if (level13Random) {
   maps[13][2][1] = ' '
 }
 
-const level15Random = getRandomBoolean()
+/* const level15Random = getRandomBoolean()
 if (level15Random) {
   maps[15][1][7] = 'P'
   maps[15][2][6] = 'R'
   maps[15][5][1] = ' '
-}
+} */
 
 const level17Random = getRandomBoolean()
 if (level17Random) {
@@ -367,8 +368,11 @@ function getRandomBoolean(x = 0.5) {
   return Math.random() < x
 }
 
-function getRandomStartPosition(between = 0, and = 7) {
+function getRandomStartPosition(between = 0, and = 8, not = [9, 10]) {
   const position = Math.floor(Math.random() * (and - between) + between)
+  if (typeof not === 'object' && not.includes(position)) {
+    return getRandomStartPosition(between, and, not)
+  }
   const result = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
   result[position] = 'A'
   return result
