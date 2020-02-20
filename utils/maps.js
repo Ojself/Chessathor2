@@ -299,32 +299,32 @@ const maps = [
 const level2Random = Math.floor(Math.random() * 8)
 maps[2][3][level2Random] = 'P'
 
-const level3Random = 'Math.random() < 0.5'
+const level3Random = Math.random() < 0.5
 if (level3Random) {
   maps[3][2].reverse()
   maps[3][3].reverse()
 }
 
-const level4Random = 'Math.random() < 0.5'
+const level4Random = Math.random() < 0.5
 if (level4Random) {
   maps[4][1].reverse()
   maps[4][3].reverse()
   maps[4][5].reverse()
 }
 
-const level5Random = 'Math.random() < 0.5'
+const level5Random = Math.random() < 0.5
 if (level5Random) {
   maps[5][3][5] = ' '
   maps[5][3][2] = 'P'
 }
 
-const level17Random = 'Math.random() < 0.5'
+const level17Random = Math.random() < 0.5
 if (level17Random) {
   maps[17][3][2] = 'N'
   maps[17][4][2] = ' '
 }
 
-const level19Random = 'Math.random() < 0.5'
+const level19Random = Math.random() < 0.5
 if (level19Random) {
   maps[19][2][0] = 'S'
   maps[19][2][2] = ' '
@@ -332,7 +332,7 @@ if (level19Random) {
   maps[19][4][4] = ' '
 }
 
-const level20Random = 'Math.random() < 0.33'
+const level20Random = Math.random() < 0.33
 if (level20Random) {
   maps[20][2][2] = 'P'
   maps[20][4][6] = ' '
