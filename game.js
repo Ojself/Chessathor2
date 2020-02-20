@@ -127,6 +127,17 @@ class Game {
     this.setup()
   }
 
+  resetLevel() {
+    this.pieces = []
+    this.squares = [];
+    this.capturedPieces = []
+    this.moveHistory = []
+    this.checks = 0
+    this.player = null
+    this.hud.timer = 15
+    this.setup()
+  }
+
   captureCheck(piece, player) {
     if (
       player.x + player.width <= piece.x ||
@@ -160,6 +171,10 @@ class Game {
     const trueX = x - 25
     const trueY = y - 25
     const checkSquare = this.squares.find(s => s.x === trueX && s.y === trueY)
+    if (!checkSquare) {
+      console.log('yikes')
+      this.resetLevel() // fail safe - not pretty
+    }
     checkSquare.blinkSquare()
   }
 
