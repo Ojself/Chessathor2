@@ -26,7 +26,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', 'A', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 1
@@ -37,7 +37,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', 'A', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 2
@@ -48,7 +48,7 @@ const maps = [
     [' ', ' ', ' ', 'P', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', 'A', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 3
@@ -59,7 +59,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', 'A', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 4
@@ -70,7 +70,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', 'P', 'P', 'P', 'P', 'P'],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', 'A', ' ']
+    getRandomStartPosition(2, 5)
   ],
   [
     // Map 5
@@ -81,7 +81,7 @@ const maps = [
     [' ', ' ', 'P', 'P', 'P', 'P', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', 'A', ' ']
+    getRandomStartPosition(2, 5)
   ],
   [
     // Map 6
@@ -92,7 +92,7 @@ const maps = [
     [' ', 'P', 'P', ' ', 'P', ' ', ' ', ' '],
     [' ', 'P', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', 'A', ' ', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 7
@@ -103,7 +103,7 @@ const maps = [
     ['P', 'P', 'P', ' ', ' ', ' ', 'P', ' '],
     [' ', 'P', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', 'A', ' ', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 8
@@ -114,7 +114,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', 'P', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', 'A', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 9
@@ -125,7 +125,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', 'R', ' ', ' '],
     ['P', 'P', 'P', 'P', 'P', 'P', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', 'A', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 10
@@ -136,7 +136,7 @@ const maps = [
     ['R', ' ', ' ', ' ', 'P', ' ', ' ', 'P'],
     ['P', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    ['A', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition(0, 1)
   ],
   [
     // Map 11
@@ -180,11 +180,11 @@ const maps = [
     ['B', ' ', ' ', ' ', ' ', ' ', ' ', 'B'],
     ['P', 'P', ' ', ' ', ' ', ' ', 'P', 'P'],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', 'A', ' ', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 15
-    [' ', ' ', ' ', ' ', 'G', ' ', ' ', 'B'],
+    [' ', ' ', ' ', ' ', 'G', ' ', ' ', 'B'], // random added
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'R'],
     [' ', ' ', ' ', ' ', 'P', ' ', ' ', ' '],
     [' ', ' ', ' ', 'P', ' ', ' ', ' ', ' '],
@@ -202,7 +202,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', 'A', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 17
@@ -213,7 +213,7 @@ const maps = [
     ['P', 'N', 'N', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', 'A', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 18
@@ -224,7 +224,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', 'A', ' ', ' ', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 19
@@ -235,7 +235,7 @@ const maps = [
     ['S', ' ', 'S', 'S', 'S', ' ', ' ', ' '],
     ['S', ' ', ' ', ' ', ' ', ' ', 'S', ' '],
     ['S', 'S', 'S', 'S', 'S', 'S', 'S', ' '],
-    [' ', 'A', ' ', ' ', ' ', ' ', ' ', ' ']
+    getRandomStartPosition(0, 3)
   ],
   [
     // Map 20
@@ -246,7 +246,7 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', 'S', 'P', ' '],
     ['S', 'S', ' ', 'S', 'S', ' ', 'S', ' '],
     [' ', 'S', ' ', ' ', 'S', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', 'A', ' ']
+    getRandomStartPosition()
   ],
   [
     // Map 21
@@ -299,32 +299,57 @@ const maps = [
 const level2Random = Math.floor(Math.random() * 8)
 maps[2][3][level2Random] = 'P'
 
-const level3Random = Math.random() < 0.5
+const level3Random = getRandomBoolean()
 if (level3Random) {
   maps[3][2].reverse()
   maps[3][3].reverse()
 }
 
-const level4Random = Math.random() < 0.5
+const level4Random = getRandomBoolean()
 if (level4Random) {
   maps[4][1].reverse()
   maps[4][3].reverse()
   maps[4][5].reverse()
 }
 
-const level5Random = Math.random() < 0.5
+const level5Random = getRandomBoolean()
 if (level5Random) {
   maps[5][3][5] = ' '
   maps[5][3][2] = 'P'
 }
 
-const level17Random = Math.random() < 0.5
+const level6Random = getRandomBoolean()
+if (level6Random) {
+  maps[6][4][1] = ''
+  maps[6][3][4] = 'P'
+}
+
+const level10Random = getRandomBoolean()
+if (level10Random) {
+  maps[10][3][0] = ''
+  maps[10][5][7] = 'R'
+}
+
+const level13Random = getRandomBoolean()
+if (level13Random) {
+  maps[13][1][5] = 'P'
+  maps[13][2][1] = ' '
+}
+
+const level15Random = getRandomBoolean()
+if (level15Random) {
+  maps[15][1][7] = 'P'
+  maps[15][2][6] = 'R'
+  maps[15][5][1] = ' '
+}
+
+const level17Random = getRandomBoolean()
 if (level17Random) {
   maps[17][3][2] = 'N'
   maps[17][4][2] = ' '
 }
 
-const level19Random = Math.random() < 0.5
+const level19Random = getRandomBoolean()
 if (level19Random) {
   maps[19][2][0] = 'S'
   maps[19][2][2] = ' '
@@ -332,8 +357,22 @@ if (level19Random) {
   maps[19][4][4] = ' '
 }
 
-const level20Random = Math.random() < 0.33
+const level20Random = getRandomBoolean(0.3)
 if (level20Random) {
   maps[20][2][2] = 'P'
   maps[20][4][6] = ' '
+}
+
+
+function getRandomBoolean(x = 0.5) {
+  return Math.random() < x
+  return true
+}
+
+function getRandomStartPosition(between = 0, and = 7) {
+  const position = Math.floor(Math.random() * (and - between) + between)
+  const result = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+  result[position] = 'A'
+  console.log(result, 'result')
+  return result
 }
