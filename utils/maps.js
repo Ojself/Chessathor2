@@ -182,9 +182,9 @@ const maps = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     getRandomStartPosition()
   ],
+  // Map 15
   [
-    // Map 15
-    [' ', ' ', ' ', ' ', 'G', ' ', ' ', 'B'], // random added
+    [' ', ' ', ' ', ' ', 'G', ' ', ' ', 'B'],
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'R'],
     [' ', ' ', ' ', ' ', 'P', ' ', ' ', ' '],
     [' ', ' ', ' ', 'P', ' ', ' ', ' ', ' '],
@@ -363,10 +363,8 @@ if (level20Random) {
   maps[20][4][6] = ' '
 }
 
-
 function getRandomBoolean(x = 0.5) {
   return Math.random() < x
-
 }
 
 function getRandomStartPosition(between = 0, and = 7) {
