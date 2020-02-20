@@ -366,13 +366,12 @@ if (level20Random) {
 
 function getRandomBoolean(x = 0.5) {
   return Math.random() < x
-  return true
+
 }
 
 function getRandomStartPosition(between = 0, and = 7) {
   const position = Math.floor(Math.random() * (and - between) + between)
   const result = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
   result[position] = 'A'
-  console.log(result, 'result')
   return result
 }
