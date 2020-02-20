@@ -190,7 +190,7 @@ function getMapPiece(level, x, y) {
 
 function determineSquareColor(row, col) {
   let color;
-  let shade;[0], shade;[1]
+  let shade;
   if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
     let r = Math.random() * 4 + 245
     let g = Math.random() * 4 + 245

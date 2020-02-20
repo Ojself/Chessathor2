@@ -37,7 +37,6 @@ function levelComplete(data) {
                 if (response.data.cheater === true) {
                     return goBackToHomePage()
                 }
-                console.log('OK')
             }
         })
         .catch((error) => {
