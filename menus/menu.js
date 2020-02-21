@@ -116,15 +116,15 @@ class Menu {
             let b = 210 - (i * 5)
             fill(r, g, b);
             textAlign(LEFT)
-            image(this.flags[i], 20, 485 + (35 * i), 30, 15);
-            text(i + 1, 70, 500 + (35 * i))
-            text(p.name, 100, 500 + (35 * i))
+            image(this.flags[i], 20, 470 + (35 * i), 30, 15);
+            text(i + 1, 70, 485 + (35 * i))
+            text(p.name, 100, 485 + (35 * i))
             textAlign(CENTER)
-            text(p.score, 250, 500 + (35 * i))
-            text(p.timeUsed, 360, 500 + (35 * i))
-            text(p.moves, 470, 500 + (35 * i))
-            text(p.captures, 570, 500 + (35 * i))
-            text(p.dateCompleted.slice(0, -5), 720, 500 + (35 * i))
+            text(p.score, 250, 485 + (35 * i))
+            text(p.timeUsed, 360, 485 + (35 * i))
+            text(p.moves, 470, 485 + (35 * i))
+            text(p.captures, 570, 485 + (35 * i))
+            text(p.dateCompleted.slice(0, -5), 720, 485 + (35 * i))
         })
     }
 }

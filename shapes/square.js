@@ -31,13 +31,20 @@ class Square {
     text(`x:${this.x / 100} y:${this.y / 100}`, this.x, this.y + 75); */
   }
 
+  resetColor() {
+    this.color = this.iAmLightSquared ? [245, 245, 220] : [222, 184, 135]
+  }
+
   blinkSquare() {
     this.guardedTile = true
-    this.changeRedColor()
+    if (!this.showHelper) {
+      this.changeRedColor()
+    }
     setTimeout(() => {
       this.guardedTile = false
     }, 500);
   }
+
   // makes tile red for a brief time and fades back to normal
   changeRedColor() {
     if (this.iAmLightSquared) {

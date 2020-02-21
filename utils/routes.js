@@ -34,9 +34,10 @@ function levelComplete(data) {
     axios.put(`${baseurl}/updateStats`, data)
         .then((response) => {
             if (response.statusText === "OK") {
-                if (response.data.cheater === true) {
+                /* if (response.data.cheater === true) {
                     return goBackToHomePage()
-                }
+                } */
+                // trigger new level here?
             }
         })
         .catch((error) => {

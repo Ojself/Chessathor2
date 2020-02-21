@@ -44,7 +44,7 @@ class Game {
             this.pieces.push(newPiece)
           }
         }
-        const squareColor = determineSquareColor(i, j);
+        const squareColor = determineSquareColor(i, j, this.currentLevel);
         const square = new Square(i * 100, j * 100, squareColor[0], squareColor[1]);
         this.squares.push(square);
       }
@@ -64,6 +64,10 @@ class Game {
       this.hud.draw()
       this.squares.forEach(el => {
         el.draw();
+        // for helper squares to reset color
+        if ([1, 8, 12, 16, 18].includes(this.currentLevel) && this.capturedPieces.length) {
+          el.resetColor()
+        }
       });
       this.pieces.forEach((p, i) => {
         p.draw()
@@ -87,13 +91,12 @@ class Game {
       }
     }
   }
-
   handleCheckCollision(x, y) {
     this.player.knockBack()
     this.hud.blinkCheck()
-    this.blinkTile(x, y)
     this.handleCheck(x, y)
     aa.play('check') // audio
+    this.blinkTile(x, y)
   }
   handleCheck(x, y) {
     this.check.checked = true
@@ -108,7 +111,6 @@ class Game {
       if (helper < 0) {
         clearInterval(checkInterval)
         this.check.checked = false
-
       }
     }, 1);
   }
@@ -203,14 +205,20 @@ function getMapPiece(level, x, y) {
   return pieces[determinePiece]
 }
 
-function determineSquareColor(row, col) {
+function determineSquareColor(row, col, level) {
   let color;
   let shade;
+
   if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
     let r = Math.random() * 4 + 245
     let g = Math.random() * 4 + 245
     let b = Math.random() * 4 + 220
 
+    if (helperLevelShowGuardedTile(row, col, level)) {
+      console.log('col:', col, 'row:', row, 'light')
+      g = 195
+      b = 170
+    }
     color = [r, g, b]//'#f5f5dc' // light
     shade = 'light'
   }
@@ -218,6 +226,12 @@ function determineSquareColor(row, col) {
     let r = Math.random() * 4 + 222
     let g = Math.random() * 4 + 184
     let b = Math.random() * 4 + 135
+
+    if (helperLevelShowGuardedTile(row, col, level)) {
+      console.log('col:', col, 'row:', row, 'dark')
+      g = 134
+      b = 85
+    }
 
     color = [r, g, b] //'#deb887' // dark
     shade = 'dark'
@@ -239,5 +253,45 @@ function sound(src) {
 
   this.stop = function () {
     this.sound.pause();
+  }
+}
+
+
+
+function helperLevelShowGuardedTile(row, col, level) { // todo wrong in random
+  const showHelperLevels = { // x : y
+    1: {
+      2: [3],
+      4: [3]
+    },
+    8: {
+      1: [3],
+      2: [3],
+      3: [1, 2, 4, 5],
+      4: [3],
+      5: [3],
+      6: [3],
+    },
+    12: {
+      1: [6],
+      2: [1, 5],
+      3: [2, 4],
+      5: [2, 4],
+      6: [1],
+      7: [0],
+    },
+    16: {
+      2: [2, 4],
+      3: [1, 5],
+      5: [1, 5],
+      6: [2, 4]
+    },
+    18: {
+      4: [3]
+    }
+  }
+
+  if (showHelperLevels[level] && showHelperLevels[level][row]) {
+    return showHelperLevels[level][row] && showHelperLevels[level][row].includes(col)
   }
 }
