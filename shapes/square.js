@@ -8,11 +8,12 @@ class Square {
 
     this.lightGuardedColor = [245, 245, 220]
     this.darkGuardedColor = [222, 184, 135]
-
+    this.shade = shade
     this.iAmLightSquared = shade === 'light'
     this.guardedTile = false
   }
   draw() {
+
     if (this.guardedTile) {
       if (this.iAmLightSquared) {
         fill(this.lightGuardedColor)
@@ -36,10 +37,9 @@ class Square {
   }
 
   blinkSquare() {
+
     this.guardedTile = true
-    if (!this.showHelper) {
-      this.changeRedColor()
-    }
+    this.changeRedColor()
     setTimeout(() => {
       this.guardedTile = false
     }, 500);
@@ -47,6 +47,8 @@ class Square {
 
   // makes tile red for a brief time and fades back to normal
   changeRedColor() {
+
+
     if (this.iAmLightSquared) {
       let g = 195
       let b = 170

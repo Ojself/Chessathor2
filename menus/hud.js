@@ -22,7 +22,7 @@ class Hud {
             this.drawInputField()
         }
         if (this.submitted) {
-            this.drawSubmitted()
+            this.drawFinalScore()
         }
         if ([0, 4, 5].includes(game.currentLevel)) {
             this.drawHotTips(game.currentLevel)
@@ -151,11 +151,10 @@ class Hud {
         }
         return false
     }
-    drawSubmitted() {
-        textSize(20)
+    drawFinalScore() {
+        textSize(25)
         fill('white')
-        text('Submitted!', 872, 175)
-        text(`Score: ${this.finalScore}`, 885, 195)
+        text(`Score: ${this.finalScore}!`, 865, 180)
     }
     drawHotTips(level) {
         textAlign(CENTER)

@@ -213,28 +213,30 @@ function determineSquareColor(row, col, level) {
     let r = Math.random() * 4 + 245
     let g = Math.random() * 4 + 245
     let b = Math.random() * 4 + 220
-
+    shade = 'light'
     if (helperLevelShowGuardedTile(row, col, level)) {
-      console.log('col:', col, 'row:', row, 'light')
-      g = 195
-      b = 170
+      r = 222
+      g = 134
+      b = 85
+      shade = 'guarded'
     }
     color = [r, g, b]//'#f5f5dc' // light
-    shade = 'light'
+
   }
   if ((row % 2 == 0 && col % 2 == 1) || (row % 2 == 1 && col % 2 == 0)) {
     let r = Math.random() * 4 + 222
     let g = Math.random() * 4 + 184
     let b = Math.random() * 4 + 135
-
+    shade = 'dark'
     if (helperLevelShowGuardedTile(row, col, level)) {
-      console.log('col:', col, 'row:', row, 'dark')
+      r = 222
       g = 134
       b = 85
+      shade = 'guarded'
     }
 
     color = [r, g, b] //'#deb887' // dark
-    shade = 'dark'
+
   }
   return [color, shade]
 }

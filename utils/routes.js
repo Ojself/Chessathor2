@@ -49,7 +49,7 @@ function finishGame(playerName, newName) {
     axios.put(`${baseurl}/endGame`, { playerName, newName })
         .then((response) => {
             if (response.statusText === "OK") { // todo, display final score for user when submit
-                game.hud.finalScore = response.data.player.score || 0
+                game.hud.finalScore = response.data.score || 0
             }
         })
         .catch((error) => {
