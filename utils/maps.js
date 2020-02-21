@@ -381,8 +381,7 @@ if (level20Random) {
 }
 
 function getRandomBoolean(x = 0.5) {
-  return true
-  /* return Math.random() < x */
+  return Math.random() < x
 }
 
 function getRandomMapPosition(piece = 'G', between = 0, and = 8, not = [9, 10]) {
