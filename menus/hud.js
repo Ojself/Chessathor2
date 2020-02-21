@@ -154,7 +154,7 @@ class Hud {
     drawFinalScore() {
         textSize(25)
         fill('white')
-        text(`Score: ${this.finalScore}!`, 865, 180)
+        text(`Score: ${this.finalScore}!`, 860, 180)
     }
     drawHotTips(level) {
         textAlign(CENTER)

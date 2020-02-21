@@ -8,6 +8,7 @@ class Square {
 
     this.lightGuardedColor = [245, 245, 220]
     this.darkGuardedColor = [222, 184, 135]
+    this.helperGuardedColor = [222, 134, 85]
     this.shade = shade
     this.iAmLightSquared = shade === 'light'
     this.guardedTile = false
@@ -17,7 +18,9 @@ class Square {
   draw() {
 
     if (this.guardedTile) {
-      if (this.iAmLightSquared) {
+      if (this.helperSquare) {
+        fill(this.helperGuardedColor)
+      } else if (this.iAmLightSquared) {
         fill(this.lightGuardedColor)
       } else {
         fill(this.darkGuardedColor)
@@ -48,16 +51,26 @@ class Square {
 
   // makes tile red for a brief time and fades back to normal
   changeRedColor() {
-
-
-    if (this.iAmLightSquared) {
+    if (this.helperSquare) {
+      let g = 134
+      let b = 85
+      const helperInterval = setInterval(() => {
+        g += 0.5
+        b += 0.5
+        this.helperGuardedColor = [222, g, b]
+        if (g >= 189) {
+          clearInterval(helperInterval)
+          this.helperGuardedColor = [222, 134, 85]
+        }
+      }, 1);
+    } else if (this.iAmLightSquared) {
       let g = 195
       let b = 170
       const lightInterval = setInterval(() => {
-        g += 1
-        b += 1
+        g += 0.5
+        b += 0.5
         this.lightGuardedColor = [245, g, b]
-        if (g >= 220) {
+        if (g >= 245) {
           clearInterval(lightInterval)
           this.lightGuardedColor = [245, 245, 220]
         }
@@ -66,10 +79,10 @@ class Square {
       let g = 134
       let b = 85
       const darkInterval = setInterval(() => {
-        g += 1
-        b += 1
+        g += 0.5
+        b += 0.5
         this.darkGuardedColor = [222, g, b]
-        if (g >= 165) {
+        if (g >= 196) {
           clearInterval(darkInterval)
           this.darkGuardedColor = [222, 184, 135]
         }
