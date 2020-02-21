@@ -44,8 +44,8 @@ class Game {
             this.pieces.push(newPiece)
           }
         }
-        const squareColor = determineSquareColor(i, j, this.currentLevel);
-        const square = new Square(i * 100, j * 100, squareColor[0], squareColor[1]);
+        const squareColorInfo = determineSquareColor(i, j, this.currentLevel);
+        const square = new Square(i * 100, j * 100, squareColorInfo[0], squareColorInfo[1], squareColorInfo[2]);
         this.squares.push(square);
       }
     }
@@ -208,6 +208,7 @@ function getMapPiece(level, x, y) {
 function determineSquareColor(row, col, level) {
   let color;
   let shade;
+  let helperTile = false
 
   if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1)) {
     let r = Math.random() * 4 + 245
@@ -218,7 +219,7 @@ function determineSquareColor(row, col, level) {
       r = 222
       g = 134
       b = 85
-      shade = 'guarded'
+      helperTile = true
     }
     color = [r, g, b]//'#f5f5dc' // light
 
@@ -232,13 +233,13 @@ function determineSquareColor(row, col, level) {
       r = 222
       g = 134
       b = 85
-      shade = 'guarded'
+      helperTile = true
     }
 
     color = [r, g, b] //'#deb887' // dark
 
   }
-  return [color, shade]
+  return [color, shade, helperTile]
 }
 /* https://www.w3schools.com/graphics/game_sound.asp */
 function sound(src) {

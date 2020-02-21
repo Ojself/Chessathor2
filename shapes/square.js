@@ -1,5 +1,5 @@
 class Square {
-  constructor(x, y, color, shade) {
+  constructor(x, y, color, shade, helperSquare) {
     this.x = x;
     this.y = y;
     this.width = 100;
@@ -11,6 +11,8 @@ class Square {
     this.shade = shade
     this.iAmLightSquared = shade === 'light'
     this.guardedTile = false
+
+    this.helperSquare = helperSquare
   }
   draw() {
 
@@ -37,7 +39,6 @@ class Square {
   }
 
   blinkSquare() {
-
     this.guardedTile = true
     this.changeRedColor()
     setTimeout(() => {
@@ -64,7 +65,6 @@ class Square {
     } else {
       let g = 134
       let b = 85
-
       const darkInterval = setInterval(() => {
         g += 1
         b += 1
