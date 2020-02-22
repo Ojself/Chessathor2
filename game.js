@@ -276,6 +276,7 @@ function helperLevelShowGuardedTile(row, col, level) { // todo wrong in random
       6: [3],
     },
     12: {
+      0: [7],
       1: [6],
       2: [1, 5],
       3: [2, 4],
