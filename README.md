@@ -14,15 +14,13 @@
 
 ## Todo
 
-- Add screencaps / gif to github
-
 - Find better pics that are not blurry
 
 - Prettify Menu/HUD texts
 
 - Add favicon
 
-- Weight score calculation better
+- Add mute button for music and sounds
 
 ## Features wanted from community
 
