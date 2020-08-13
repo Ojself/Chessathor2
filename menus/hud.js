@@ -47,7 +47,7 @@ class Hud {
       textSize(15);
       fill("white");
     }
-    text(`Checks ${game.totalChecks}`, 850, 20);
+    text(`Checks ${game.totalChecks}`, 832, 20);
     fill("white");
   }
 
@@ -65,7 +65,7 @@ class Hud {
       fill("white");
     }
     textSize(15);
-    text(`Captures ${game.totalCapturedPieces.length}`, 950, 20);
+    text(`Captures ${game.totalCapturedPieces.length}`, 918, 20);
     fill("white");
   }
 
@@ -74,13 +74,13 @@ class Hud {
       return;
     }
     textSize(30);
-    text(`Level ${game.currentLevel}`, 865, 115);
+    text(`Level ${game.currentLevel}`, 848, 115);
 
     textSize(10);
-    text(`Time bonus`, 960, 80);
+    text(`Time bonus`, 940, 75);
 
     textSize(50);
-    text(`${this.timer}`, 960, 115);
+    text(`${this.timer}`, 940, 115);
 
     if (frameCount % 60 == 0 && this.timer > 0) {
       this.timer -= 1;
