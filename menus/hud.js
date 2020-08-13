@@ -73,8 +73,8 @@ class Hud {
     if (game.gameOver) {
       return;
     }
-    textSize(30);
-    text(`Level ${game.currentLevel}`, 848, 115);
+    //textSize(30);
+    //text(`Level ${game.currentLevel}`, 848, 115);
 
     textSize(10);
     text(`Time bonus`, 940, 75);
