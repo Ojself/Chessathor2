@@ -55,7 +55,7 @@ class Menu {
         let dot = frameCount % 60 > 30 ? '.' : '..'
         fill('white')
         textSize(20)
-        text('Servers status: ', 100, 250)
+        text('Server status: ', 100, 250)
 
         textAlign(LEFT)
         fill('white')
