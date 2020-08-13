@@ -18,8 +18,6 @@
 
 - Prettify Menu/HUD texts
 
-- Add favicon
-
 - Add mute button for music and sounds
 
 ## Features wanted from community
