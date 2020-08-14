@@ -124,7 +124,7 @@ class Menu {
             text(p.timeUsed, 360, 485 + (35 * i))
             text(p.moves, 470, 485 + (35 * i))
             text(p.captures, 570, 485 + (35 * i))
-            text(p.dateCompleted.slice(0, -5), 720, 485 + (35 * i))
+            text(p.dateCompleted.slice(0, -5).replace('T',' - '), 720, 485 + (35 * i))
         })
     }
 }
