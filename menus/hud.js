@@ -80,7 +80,7 @@ class Hud {
     text(`Time bonus`, 875, 75);
 
     textSize(50);
-    text(`${this.timer}`, 920, 115);
+    text(`${this.timer}`, 875, 115);
 
     if (frameCount % 60 == 0 && this.timer > 0) {
       this.timer -= 1;
@@ -124,7 +124,7 @@ class Hud {
 
       textSize(20);
       fill("white");
-      text("SUBMIT!", 872, 172);
+      text("SUBMIT!", 872, 185);
     }
   }
   enterName(key, keyCode) {
