@@ -20,7 +20,7 @@ class Hud {
     if (game.gameOver) {
       this.drawInputField();
     }
-    if (!this.submitted) {
+    if (this.submitted) {
       this.drawFinalScore();
     }
     if ([0, 4, 5].includes(game.currentLevel)) {
