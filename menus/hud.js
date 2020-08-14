@@ -54,7 +54,7 @@ class Hud {
   drawTotalMoves() {
     textSize(15);
     fill("white");
-    text(`Moves ${game.totalMoveHistory.length}`, 900, 40);
+    text(`Moves ${game.totalMoveHistory.length}`, 875, 40);
     fill("white");
   }
 
@@ -77,10 +77,10 @@ class Hud {
     //text(`Level ${game.currentLevel}`, 848, 115);
 
     textSize(10);
-    text(`Time bonus`, 940, 75);
+    text(`Time bonus`, 875, 75);
 
     textSize(50);
-    text(`${this.timer}`, 940, 115);
+    text(`${this.timer}`, 920, 115);
 
     if (frameCount % 60 == 0 && this.timer > 0) {
       this.timer -= 1;
@@ -124,7 +124,7 @@ class Hud {
 
       textSize(20);
       fill("white");
-      text("SUBMIT!", 872, 175);
+      text("SUBMIT!", 872, 172);
     }
   }
   enterName(key, keyCode) {
