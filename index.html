@@ -15,7 +15,13 @@
     <p>This game is only</p>
     <p>available for desktop</p>
   </div>
-
+<script> document.addEventListener('paste', async (event) => {
+  navigator.clipboard.readText().then(text =>console.log(text,'text!'))
+    if (game.gameOver) {
+      navigator.clipboard.readText().then(text => game.hud.inputField = text)
+      
+    }
+}); </script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./utils/p5.min.js"></script>
   <script src="./utils/routes.js"></script>
