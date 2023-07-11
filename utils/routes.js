@@ -1,13 +1,12 @@
 const baseurl = window.location.href.includes("chessathor2.flesjoe.com")
   ? "https://chessathorserver.cyclic.app"
   : "http://localhost:3200";
-console.log({ baseurl });
+
 function wakeUpServer() {
   axios
     .get(`${baseurl}/wakeup`)
     .then((response) => {
-      console.log({ response });
-      if (response.data && response.data.highScore) {
+      if (response.status === 200) {
         game.menu.serversOnline = true;
         game.menu.highScore = response.data.highScore;
         game.menu.preloadImages();
@@ -23,8 +22,7 @@ function startGame() {
   axios
     .post(`${baseurl}/startGame`) // todo, change out URL with heroku server
     .then((response) => {
-      console.log({ response });
-      if (response.statusText === "OK") {
+      if (response.status === 200) {
         game.gameStarted = true;
         game.music.play();
         game.playerName = response.data.name;
@@ -39,8 +37,7 @@ function levelComplete(data) {
   axios
     .put(`${baseurl}/updateStats`, data)
     .then((response) => {
-      console.log({ response });
-      if (response.statusText === "OK") {
+      if (response.status === 200) {
         /* if (response.data.cheater === true) {
                     return goBackToHomePage()
                 } */
@@ -56,15 +53,12 @@ function finishGame(playerName, newName) {
   axios
     .put(`${baseurl}/endGame`, { playerName, newName })
     .then((response) => {
-      console.log({ response });
-      if (response.statusText === "OK") {
+      if (response.status === 200) {
         // todo, display final score for user when submit
         game.hud.finalScore = response.data.score || 0;
       }
     })
-    .catch((error) => {
-      console.log("error:", error);
-    });
+    .catch((error) => {});
   goBackToHomePage();
 }
 
