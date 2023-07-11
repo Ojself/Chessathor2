@@ -6,6 +6,7 @@ function wakeUpServer() {
   axios
     .get(`${baseurl}/wakeup`)
     .then((response) => {
+      console.log({ response });
       if (response.data && response.data.highScore) {
         game.menu.serversOnline = true;
         game.menu.highScore = response.data.highScore;
@@ -22,6 +23,7 @@ function startGame() {
   axios
     .post(`${baseurl}/startGame`) // todo, change out URL with heroku server
     .then((response) => {
+      console.log({ response });
       if (response.statusText === "OK") {
         game.gameStarted = true;
         game.music.play();
@@ -37,6 +39,7 @@ function levelComplete(data) {
   axios
     .put(`${baseurl}/updateStats`, data)
     .then((response) => {
+      console.log({ response });
       if (response.statusText === "OK") {
         /* if (response.data.cheater === true) {
                     return goBackToHomePage()
@@ -53,6 +56,7 @@ function finishGame(playerName, newName) {
   axios
     .put(`${baseurl}/endGame`, { playerName, newName })
     .then((response) => {
+      console.log({ response });
       if (response.statusText === "OK") {
         // todo, display final score for user when submit
         game.hud.finalScore = response.data.score || 0;
