@@ -6,7 +6,7 @@ function wakeUpServer() {
   axios
     .get(`${baseurl}/wakeup`)
     .then((response) => {
-      if (response.statusText === "OK") {
+      if (response.data && response.data.highScore) {
         game.menu.serversOnline = true;
         game.menu.highScore = response.data.highScore;
         game.menu.preloadImages();
