@@ -1,7 +1,6 @@
-const baseurl =
-  window.location.href === "http://chessathor2.flesjoe.com/"
-    ? "https://chessathorserver.cyclic.app"
-    : "http://localhost:3200";
+const baseurl = window.location.href.includes("chessathor2.flesjoe.com")
+  ? "https://chessathorserver.cyclic.app"
+  : "http://localhost:3200";
 function wakeUpServer() {
   axios
     .get(`${baseurl}/wakeup`)
