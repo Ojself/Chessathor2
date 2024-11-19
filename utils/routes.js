@@ -1,5 +1,5 @@
 const baseurl = window.location.href.includes("ojself.github.io/Chessathor2")
-  ? "https://chessathorserver.cyclic.app"
+  ? "https://chessathorserver.fly.dev"
   : "http://localhost:3200";
 
 function wakeUpServer() {
