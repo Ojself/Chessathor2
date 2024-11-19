@@ -1,4 +1,4 @@
-const baseurl = window.location.href.includes("chessathor2.flesjoe.com")
+const baseurl = window.location.href.includes("ojself.github.io/Chessathor2")
   ? "https://chessathorserver.cyclic.app"
   : "http://localhost:3200";
 
@@ -66,6 +66,6 @@ function finishGame(playerName, newName) {
 
 const goBackToHomePage = () => {
   setTimeout(() => {
-    window.location.href = "http://chessathor2.flesjoe.com/";
+    window.location.href = "https://ojself.github.io/Chessathor2/";
   }, 5000);
 };
