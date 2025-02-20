@@ -4,7 +4,7 @@
 
 class Game {
   constructor() {
-    this.currentLevel = 0;
+    this.currentLevel = 13;
     this.squares = [];
     this.pieces = [];
     this.capturedPieces = [];
@@ -87,12 +87,10 @@ class Game {
       this.pieces.forEach((piece) => {
         piece.draw();
         if (piece.collisionCheck(this.player)) {
-          console.log('IF1');
           piece.tempExpandImage();
           this.handleCheckCollision(this.player.x, this.player.y);
         }
         if (this.captureCheck(piece, this.player) && piece.name !== 'goal') {
-          console.log('IF2');
           this.handleCapture(piece);
         }
       });

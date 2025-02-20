@@ -300,48 +300,28 @@ const maps = [
   ]),
 
   // Map 13 – with a minor random tweak
-  new MapLayout(
-    13,
-    [
-      staticRow('    G   '),
-      staticRow('        '),
-      staticRow(' P P P  '),
-      staticRow('B B B B '),
-      staticRow('        '),
-      staticRow('        '),
-      staticRow('        '),
-      staticRow(' A      '),
-    ],
-    [
-      (layout) => {
-        if (getRandomBoolean()) {
-          layout.forEach((row) => row.reverse());
-        }
-      },
-    ]
-  ),
+  new MapLayout(13, [
+    staticRow('    G   '),
+    staticRow('        '),
+    staticRow(' P P P  '),
+    staticRow('B B B B '),
+    staticRow('        '),
+    staticRow('        '),
+    staticRow('        '),
+    staticRow(' A      '),
+  ]),
 
   // Map 14
-  new MapLayout(
-    14,
-    [
-      staticRow('    G   '),
-      staticRow('R P  P R'),
-      staticRow('P      P'),
-      staticRow('        '),
-      staticRow('B      B'),
-      staticRow('PP    PP'),
-      staticRow('        '),
-      staticRow(' A      '),
-    ],
-    [
-      (layout) => {
-        if (getRandomBoolean()) {
-          layout.forEach((row) => row.reverse());
-        }
-      },
-    ]
-  ),
+  new MapLayout(14, [
+    staticRow('    G   '),
+    staticRow('R P  P R'),
+    staticRow('P      P'),
+    staticRow('        '),
+    staticRow('B      B'),
+    staticRow('PP    PP'),
+    staticRow('        '),
+    staticRow(' A      '),
+  ]),
 
   // Map 15
   new MapLayout(
