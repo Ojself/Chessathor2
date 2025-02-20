@@ -64,6 +64,7 @@ class Game {
     if (this.player) {
       this.player.setup();
     }
+
     this.pieces.forEach((piece) => piece.setup());
   }
 
@@ -86,15 +87,16 @@ class Game {
       this.pieces.forEach((piece) => {
         piece.draw();
         if (piece.collisionCheck(this.player)) {
+          console.log('IF1');
           piece.tempExpandImage();
           this.handleCheckCollision(this.player.x, this.player.y);
         }
-      });
-      this.pieces.forEach((piece) => {
         if (this.captureCheck(piece, this.player) && piece.name !== 'goal') {
+          console.log('IF2');
           this.handleCapture(piece);
         }
       });
+      this.pieces.forEach((piece) => {});
       this.player.draw();
 
       if (this.check.checked) {

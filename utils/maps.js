@@ -272,30 +272,20 @@ const maps = [
     staticRow('R   P  P'),
     staticRow('P       '),
     staticRow('        '),
-    () => getRandomMapPosition(PieceType.PLAYER, 0, 1),
+    () => getRandomMapPosition(PieceType.PLAYER, 0, 2),
   ]),
 
   // Map 11
-  new MapLayout(
-    11,
-    [
-      staticRow('PG    R '),
-      staticRow('R     P '),
-      staticRow('R    P  '),
-      staticRow('        '),
-      staticRow('   P    '),
-      staticRow('P  P    '),
-      staticRow('   PPPPP'),
-      staticRow(' A      '),
-    ],
-    [
-      (layout) => {
-        if (getRandomBoolean()) {
-          layout.forEach((row) => row.reverse());
-        }
-      },
-    ]
-  ),
+  new MapLayout(11, [
+    staticRow('PG    R '),
+    staticRow('R     P '),
+    staticRow('R    P  '),
+    staticRow('        '),
+    staticRow('   P    '),
+    staticRow('P  P    '),
+    staticRow('   PPPPP'),
+    staticRow(' A      '),
+  ]),
 
   // Map 12
   new MapLayout(12, [
