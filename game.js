@@ -65,9 +65,10 @@ class Game {
     if (this.player) {
       this.player.setup();
     }
-    console.log(this.pieces);
 
-    this.pieces.forEach((piece) => piece.setup());
+    this.pieces
+      .sort((a, b) => (a.name === 'goal' ? -1 : 1))
+      .forEach((piece) => piece.setup());
   }
 
   draw() {
