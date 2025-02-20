@@ -354,7 +354,7 @@ const maps = [
     staticRow('        '),
     staticRow('        '),
     staticRow('        '),
-    () => getRandomMapPosition(PieceType.PLAYER),
+    () => getRandomMapPosition(PieceType.PLAYER, 1, 5),
   ]),
 
   // Map 17 – with a small tweak in two cells

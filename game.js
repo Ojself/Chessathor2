@@ -36,7 +36,6 @@ class Game {
 
     // Generate the 8x8 board for the current level.
     const board = maps[this.currentLevel].generate();
-
     for (let i = 0; i < BOARD_SIZE; i++) {
       for (let j = 0; j < BOARD_SIZE; j++) {
         const cellValue = board[i][j];
@@ -62,13 +61,13 @@ class Game {
       }
     }
 
-    if (this.player) {
-      this.player.setup();
-    }
-
     this.pieces
       .sort((a, b) => (a.name === 'goal' ? -1 : 1))
       .forEach((piece) => piece.setup());
+
+    if (this.player) {
+      this.player.setup();
+    }
   }
 
   draw() {
@@ -89,6 +88,10 @@ class Game {
       });
       this.pieces.forEach((piece) => {
         piece.draw();
+        if (piece.name === 'goal' && piece.collisionCheck(this.player)) {
+          this.handleNewLevel();
+        }
+
         if (piece.collisionCheck(this.player)) {
           piece.tempExpandImage();
           this.handleCheckCollision(this.player.x, this.player.y);
@@ -97,7 +100,6 @@ class Game {
           this.handleCapture(piece);
         }
       });
-      this.pieces.forEach((piece) => {});
       this.player.draw();
 
       if (this.check.checked) {
@@ -142,13 +144,14 @@ class Game {
       playerName: this.playerName,
       currentLevel: this.currentLevel,
     });
+    this.currentLevel += 1;
     this.pieces = [];
     this.squares = [];
     this.capturedPieces = [];
     this.moveHistory = [];
     this.checks = 0;
     this.player = null;
-    this.currentLevel += 1;
+
     this.hud.saveTime();
     this.hud.timer = 15;
     this.setup();

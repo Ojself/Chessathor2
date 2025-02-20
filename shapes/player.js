@@ -4,43 +4,49 @@ class Player {
     this.y = y;
     this.height = 50;
     this.width = 50;
-    this.name = name
+    this.name = name;
     this.tempMove = [];
 
-    this.isMoving = false
+    this.isMoving = false;
 
-    this.lastCordinates = [0, 0]
+    this.lastCordinates = [25, 725];
   }
 
   setup() {
     this.playerImg = loadImage('assets/bk.png');
   }
   draw() {
-    image(this.playerImg, this.x - 15, this.y - 15, this.width + 30, this.height + 30);
+    image(
+      this.playerImg,
+      this.x - 15,
+      this.y - 15,
+      this.width + 30,
+      this.height + 30
+    );
     // debug
     /* 
     fill('blue')
     text(`${this.x}, ${this.y}`, this.x, this.y) */
-
   }
 
   // knocks back player when walking into 'check'
   knockBack() {
-    this.x = this.lastCordinates[0]
-    this.y = this.lastCordinates[1]
+    console.log('Knockback');
+    this.x = this.lastCordinates[0];
+    this.y = this.lastCordinates[1];
   }
 
   move() {
-
     let direction;
     const arrowDirections = {
       38: 'north', // Arrow keys
       40: 'south',
       37: 'west',
-      39: 'east'
+      39: 'east',
     };
 
-    const WASDdirections = { // WASD QEZCX
+    const WASDdirections = {
+      // WASD QEZCX
       87: 'north',
       65: 'west',
       68: 'east',
@@ -50,17 +56,19 @@ class Player {
       81: 'westnorth',
       90: 'westsouth',
       67: 'eastsouth',
-    }
+    };
     if (keyCode > 40) {
-      direction = WASDdirections[keyCode]
-      this.movePlayer(direction)
-      return
+      direction = WASDdirections[keyCode];
+      this.movePlayer(direction);
+      return;
     }
 
     this.tempMove.push(keyCode);
     if (this.tempMove.length === 2) {
-      this.tempMove.sort()
-      direction = `${arrowDirections[this.tempMove[0]]}${arrowDirections[this.tempMove[1]]}`
+      this.tempMove.sort();
+      direction = `${arrowDirections[this.tempMove[0]]}${
+        arrowDirections[this.tempMove[1]]
+      }`;
       this.tempMove = [];
       this.movePlayer(direction);
     } else {
@@ -75,7 +83,6 @@ class Player {
   }
 
   movePlayer(direction) {
-
     switch (direction) {
       case 'northeast':
         this.smoothMove(1, -1);
@@ -105,20 +112,20 @@ class Player {
   }
   smoothMove(x, y) {
     if (this.isMoving || checkBorders(x, y, this.x, this.y)) {
-      return
+      return;
     }
-    this.lastCordinates = [this.x, this.y]
-    this.isMoving = true
-    game.moveHistory.push([x, y])
-    game.totalMoveHistory.push([x, y])
+    this.lastCordinates = [this.x, this.y];
+    this.isMoving = true;
+    game.moveHistory.push([x, y]);
+    game.totalMoveHistory.push([x, y]);
     let moveIntervalHelper = 0;
-    aa.play('move') // audio
+    aa.play('move'); // audio
     let moveInterval = setInterval(() => {
-      this.x += (x * 5)
-      this.y += (y * 5)
-      moveIntervalHelper++
+      this.x += x * 5;
+      this.y += y * 5;
+      moveIntervalHelper++;
       if (moveIntervalHelper > 19) {
-        this.isMoving = false
+        this.isMoving = false;
         clearInterval(moveInterval);
       }
     }, 1);
@@ -126,22 +133,24 @@ class Player {
 }
 
 function checkBorders(x, y, playerX, playerY) {
-  if (!!y) { // if player is moving south or north
+  if (!!y) {
+    // if player is moving south or north
     if (y > 0 && playerY + 100 > height) {
-      return true
+      return true;
     }
     if (y < 0 && playerY - 100 < 0) {
-      return true
+      return true;
     }
   }
-  if (!!x) { // if player is even moving east or west
-    const rightMenuBuffer = -200
+  if (!!x) {
+    // if player is even moving east or west
+    const rightMenuBuffer = -200;
     if (x > 0 && playerX + 100 > width + rightMenuBuffer) {
-      return true
+      return true;
     }
     if (x < 0 && playerX - 100 < 0) {
-      return true
+      return true;
     }
   }
-  return false
+  return false;
 }

@@ -54,7 +54,6 @@ function finishGame(playerName, newName) {
     .put(`${baseurl}/endGame`, { playerName, newName })
     .then((response) => {
       if ([204, 201, 200].includes(response.status)) {
-        // todo, display final score for user when submit
         game.hud.finalScore = response.data.score || 0;
       }
     })
