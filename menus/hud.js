@@ -5,10 +5,10 @@ class Hud {
     this.blinkCaptureText = false;
 
     this.timeHistory = [];
-    this.inputField = "";
+    this.inputField = '';
 
     this.submitted = false;
-    this.finalScore = "";
+    this.finalScore = '';
   }
 
   draw() {
@@ -42,31 +42,31 @@ class Hud {
   drawTotalChecks() {
     if (this.blinkCheckText) {
       textSize(18);
-      fill("tomato");
+      fill('tomato');
     } else {
       textSize(15);
-      fill("white");
+      fill('white');
     }
     text(`Checks ${game.totalChecks}`, 832, 20);
-    fill("white");
+    fill('white');
   }
 
   drawTotalMoves() {
     textSize(15);
-    fill("white");
+    fill('white');
     text(`Moves ${game.totalMoveHistory.length}`, 875, 40);
-    fill("white");
+    fill('white');
   }
 
   drawTotalCaptures() {
     if (this.blinkCaptureText) {
-      fill("lime");
+      fill('lime');
     } else {
-      fill("white");
+      fill('white');
     }
     textSize(15);
     text(`Captures ${game.totalCapturedPieces.length}`, 918, 20);
-    fill("white");
+    fill('white');
   }
 
   drawCurrentLevelAndCountDown() {
@@ -101,13 +101,13 @@ class Hud {
 
   drawInputField() {
     textAlign(LEFT);
-    fill("white");
+    fill('white');
     textSize(20);
-    text("Enter name", 862, 80);
+    text('Enter name', 862, 80);
 
     rect(830, 100, 180, 50);
 
-    fill("black");
+    fill('black');
     textSize(25);
     text(this.inputField, 840, 125); // max 9
 
@@ -116,15 +116,15 @@ class Hud {
     }
 
     if (!this.submitted) {
-      fill("grey");
+      fill('grey');
       rect(863, 158, 104, 34);
 
-      fill("tomato");
+      fill('tomato');
       rect(865, 160, 100, 30);
 
       textSize(20);
-      fill("white");
-      text("SUBMIT!", 872, 185);
+      fill('white');
+      text('SUBMIT!', 872, 185);
     }
   }
   enterName(key, keyCode) {
@@ -154,44 +154,44 @@ class Hud {
   drawFinalScore() {
     textAlign(LEFT);
     textSize(30 - this.finalScore.toString().length);
-    fill("white");
+    fill('white');
     text(`Score: ${this.finalScore}`, 810, 180);
   }
   drawHotTips(level) {
     textAlign(CENTER);
 
-    fill("white");
+    fill('white');
     if (level === 0) {
-      fill("white");
+      fill('white');
       textSize(10);
-      text("Use ", 925, 475);
-      fill("tomato");
+      text('Use ', 925, 475);
+      fill('tomato');
       textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
-      text("W - A - S - D", 925, 500);
-      fill("white");
+      text('W - A - S - D', 925, 500);
+      fill('white');
       textSize(15);
-      text("or", 925, 525);
-      fill("tomato");
+      text('or', 925, 525);
+      fill('tomato');
       textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
-      text("ARROW KEYS", 925, 550);
+      text('ARROW KEYS', 925, 550);
 
-      fill("white");
+      fill('white');
       textSize(15);
-      text("to move", 925, 575);
+      text('to move', 925, 575);
     }
     if (level === 4 && game.capturedPieces.length < 3) {
-      fill("tomato");
+      fill('tomato');
       textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
-      text("TRY CAPTURING", 920, 550);
-      text("SOME PIECES", 920, 575);
+      text('TRY CAPTURING', 920, 550);
+      text('SOME PIECES', 920, 575);
     }
     if (level === 5 && game.player.y > 325) {
-      fill("tomato");
+      fill('tomato');
       textSize(map(sin(frameCount * 0.1), -5, 1, 10, 20));
-      text("TRY MOVING", 920, 550);
-      text("DIAGONALLY", 920, 575);
+      text('TRY MOVING', 920, 550);
+      text('DIAGONALLY', 920, 575);
       textSize(15);
-      fill("white");
+      fill('white');
       text(`Hint: 'q' or 'e'`, 920, 625);
       text(`or arrow keys`, 920, 640);
     }

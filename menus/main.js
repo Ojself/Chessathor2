@@ -1,7 +1,7 @@
 const game = new Game();
 
 function setup() {
-  createCanvas(1000, 780);
+  createCanvas(1000, 800);
   game.setup();
 }
 
@@ -9,16 +9,18 @@ function draw() {
   game.draw();
 }
 
-const allowedMovementKeys = [37, 38, 39, 40, 41, 65, 67, 68, 69, 81, 83, 87, 88, 90]
+const allowedMovementKeys = [
+  37, 38, 39, 40, 41, 65, 67, 68, 69, 81, 83, 87, 88, 90,
+];
 function keyPressed() {
-
   if (game.gameOver) {
-    game.hud.enterName(key, keyCode)
+    game.hud.enterName(key, keyCode);
   } else if (allowedMovementKeys.includes(keyCode)) {
-    game.player.move()
+    game.player.move();
   }
-  if (!game.gameStarted && game.menu.serversOnline && keyCode === 13) { // hit enter to start game
-    startGame()
+  if (!game.gameStarted && game.menu.serversOnline && keyCode === 13) {
+    // hit enter to start game
+    startGame();
   }
   return false; // prevent any default behaviour
 }
@@ -26,12 +28,12 @@ function keyPressed() {
 function mouseClicked() {
   if (game.gameOver) {
     if (game.hud.submitHover()) {
-      finishGame(game.playerName, game.hud.inputField)
+      finishGame(game.playerName, game.hud.inputField);
     }
   }
   if (!game.gameStarted) {
     if (game.menu.checkMouseHover()) {
-      startGame()
+      startGame();
     }
   }
   // prevent default

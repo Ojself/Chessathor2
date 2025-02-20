@@ -1,6 +1,6 @@
-const baseurl = window.location.href.includes("ojself.github.io/Chessathor2")
-  ? "https://chessathorserver.fly.dev"
-  : "http://localhost:3000";
+const baseurl = !window.location.href.includes('ojself.github.io/Chessathor2')
+  ? 'https://chessathorserver.fly.dev'
+  : 'http://localhost:3000';
 
 function wakeUpServer() {
   axios
@@ -66,6 +66,6 @@ function finishGame(playerName, newName) {
 
 const goBackToHomePage = () => {
   setTimeout(() => {
-    window.location.href = "https://ojself.github.io/Chessathor2/";
+    window.location.href = 'https://ojself.github.io/Chessathor2/';
   }, 5000);
 };

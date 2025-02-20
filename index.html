@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Chessathor 2.0</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Chessathor 2.0</title>
-</head>
-
-<body>
-  <div id=mobileMessage>
-    <p>This game is only</p>
-    <p>available for desktop</p>
-  </div>
-<script> document.addEventListener('paste', async (event) => {
-  navigator.clipboard.readText().then(text =>console.log(text,'text!'))
-    if (game.gameOver) {
-      navigator.clipboard.readText().then(text => game.hud.inputField = text)
-      
-    }
-}); </script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="./utils/p5.min.js"></script>
-  <script src="./utils/routes.js"></script>
-  <script src="./utils/audio.js"></script>
-  <script src="./utils/maps.js"></script>
-  <script src="./shapes/square.js"></script>
-  <script src="./shapes/finishTile.js"></script>
-  <script src="./pieces/pawn.js"></script>
-  <script src="./pieces/rook.js"></script>
-  <script src="./pieces/bishop.js"></script>
-  <script src="./pieces/knight.js"></script>
-  <script src="./pieces/spikes.js"></script>
-  <script src="./pieces/queen.js"></script>
-  <script src="./shapes/player.js"></script>
-  <script src="./shapes/background.js"></script>
-  <script src="./menus/hud.js"></script>
-  <script src="./menus/menu.js"></script>
-  <script src="./game.js"></script>
-  <script src="./menus/main.js"></script>
-</body>
-
+  <body>
+    <div id="mobileMessage">
+      <p>This game is only</p>
+      <p>available for desktop</p>
+    </div>
+    <script>
+      document.addEventListener('paste', async (event) => {
+        navigator.clipboard
+          .readText()
+          .then((text) => console.log(text, 'text!'));
+        if (game.gameOver) {
+          navigator.clipboard
+            .readText()
+            .then((text) => (game.hud.inputField = text));
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./utils/p5.min.js"></script>
+    <script src="./utils/routes.js"></script>
+    <script src="./utils/audio.js"></script>
+    <script src="./utils/maps.js"></script>
+    <script src="./shapes/square.js"></script>
+    <script src="./shapes/finishTile.js"></script>
+    <script src="./pieces/pawn.js"></script>
+    <script src="./pieces/rook.js"></script>
+    <script src="./pieces/bishop.js"></script>
+    <script src="./pieces/knight.js"></script>
+    <script src="./pieces/spikes.js"></script>
+    <script src="./pieces/queen.js"></script>
+    <script src="./shapes/player.js"></script>
+    <script src="./shapes/background.js"></script>
+    <script src="./menus/hud.js"></script>
+    <script src="./menus/menu.js"></script>
+    <script src="./game.js"></script>
+    <script src="./menus/main.js"></script>
+  </body>
 </html>
