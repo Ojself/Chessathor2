@@ -20,9 +20,7 @@ const PieceType = {
 /**
  * Returns true with the given probability (default 50%).
  */
-function getRandomBoolean(probability = 0.5) {
-  return Math.random() < probability;
-}
+const getRandomBoolean = (P = 0.5) => Math.random() < P;
 
 /**
  * Returns an array of 8 cells with all spaces except one random position.
