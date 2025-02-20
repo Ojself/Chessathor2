@@ -2,6 +2,7 @@
 
 // ---- Constants ----
 const BOARD_SIZE = 8;
+const SQUARE_SIZE = 100;
 
 const PieceType = {
   GOAL: 'G',
