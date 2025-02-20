@@ -4,7 +4,7 @@
 
 class Game {
   constructor() {
-    this.currentLevel = 13;
+    this.currentLevel = 0;
     this.squares = [];
     this.pieces = [];
     this.capturedPieces = [];
@@ -61,9 +61,11 @@ class Game {
         this.squares.push(square);
       }
     }
+
     if (this.player) {
       this.player.setup();
     }
+    console.log(this.pieces);
 
     this.pieces.forEach((piece) => piece.setup());
   }
