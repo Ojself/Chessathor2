@@ -1,6 +1,4 @@
 // game.js
-// (Assuming you import the maps and constants from your refactored maps file)
-// import { maps, BOARD_SIZE, SQUARE_SIZE, PieceType } from './maps.js';
 
 class Game {
   constructor() {
@@ -25,21 +23,22 @@ class Game {
     };
     this.gameOver = false;
     this.gameStarted = false;
-    this.music = new sound('./utils/music2.mp3');
+    this.music = new Sound('./utils/music2.mp3');
   }
 
   setup() {
     this.background.setup();
-    // Clear arrays if resetting the level.
+    // Reset arrays when (re)starting the level
     this.squares = [];
     this.pieces = [];
 
-    // Generate the 8x8 board for the current level.
+    // Generate the board for the current level
     const board = maps[this.currentLevel].generate();
     for (let i = 0; i < BOARD_SIZE; i++) {
       for (let j = 0; j < BOARD_SIZE; j++) {
         const cellValue = board[i][j];
-        // Create a piece based on the board value.
+
+        // Create a piece if there is one on this cell
         const newPiece = getMapPiece(cellValue, i, j);
         if (newPiece) {
           if (newPiece.name === 'player') {
@@ -48,7 +47,8 @@ class Game {
             this.pieces.push(newPiece);
           }
         }
-        // Create a square at this grid location.
+
+        // Create a square at this grid location with determined color
         const squareColorInfo = determineSquareColor(i, j, this.currentLevel);
         const square = new Square(
           i * SQUARE_SIZE,
@@ -61,6 +61,7 @@ class Game {
       }
     }
 
+    // Setup all non-player pieces (sorting so goals are processed first)
     this.pieces
       .sort((a, b) => (a.name === 'goal' ? -1 : 1))
       .forEach((piece) => piece.setup());
@@ -73,40 +74,51 @@ class Game {
   draw() {
     if (!this.gameStarted) {
       this.menu.draw();
-    } else {
-      this.background.draw();
-      this.hud.draw();
-      this.squares.forEach((square) => {
-        square.draw();
-        // For certain levels, reset helper square colors if pieces were captured.
-        if (
-          [1, 8, 12, 16, 18].includes(this.currentLevel) &&
-          this.capturedPieces.length
-        ) {
-          square.resetColor();
-        }
-      });
-      this.pieces.forEach((piece) => {
-        piece.draw();
-        if (piece.name === 'goal' && piece.collisionCheck(this.player)) {
-          this.handleNewLevel();
-        }
+      return;
+    }
 
-        if (piece.collisionCheck(this.player)) {
-          piece.tempExpandImage();
-          this.handleCheckCollision(this.player.x, this.player.y);
-        }
-        if (this.captureCheck(piece, this.player) && piece.name !== 'goal') {
-          this.handleCapture(piece);
-        }
-      });
-      this.player.draw();
+    this.background.draw();
+    this.hud.draw();
 
-      if (this.check.checked) {
-        textSize(32);
-        fill('tomato');
-        text('CHECK', this.check.checkX, this.check.checkY);
+    // Draw board squares
+    this.squares.forEach((square) => {
+      square.draw();
+      // For certain levels, reset square colors if pieces were captured
+      if (
+        [1, 8, 12, 16, 18].includes(this.currentLevel) &&
+        this.capturedPieces.length
+      ) {
+        square.resetColor();
       }
+    });
+
+    // Draw pieces and check for collisions
+    this.pieces.forEach((piece) => {
+      piece.draw();
+      if (piece.name === 'goal' && piece.collisionCheck(this.player)) {
+        this.handleNewLevel();
+      }
+      if (piece.collisionCheck(this.player)) {
+        piece.tempExpandImage();
+        this.handleCheckCollision(this.player.x, this.player.y);
+      }
+    });
+
+    // Process captures
+    this.pieces.forEach((piece) => {
+      if (this.captureCheck(piece, this.player) && piece.name !== 'goal') {
+        this.handleCapture(piece);
+      }
+    });
+
+    // Draw the player last so they appear on top
+    this.player.draw();
+
+    // Display check notification if active
+    if (this.check.checked) {
+      textSize(32);
+      fill('tomato');
+      text('CHECK', this.check.checkX, this.check.checkY);
     }
   }
 
@@ -114,7 +126,7 @@ class Game {
     this.player.knockBack();
     this.hud.blinkCheck();
     this.handleCheck(x, y);
-    aa.play('check'); // audio
+    aa.play('check'); // Play check sound
     this.blinkTile(x, y);
   }
 
@@ -125,7 +137,8 @@ class Game {
     this.check.checkY = y;
     this.checks += 1;
     this.totalChecks += 1;
-    let checkInterval = setInterval(() => {
+
+    const checkInterval = setInterval(() => {
       this.check.checkY -= 0.15;
       helper--;
       if (helper < 0) {
@@ -144,7 +157,7 @@ class Game {
       playerName: this.playerName,
       currentLevel: this.currentLevel,
     });
-    this.currentLevel += 1;
+    this.currentLevel++;
     this.pieces = [];
     this.squares = [];
     this.capturedPieces = [];
@@ -169,6 +182,7 @@ class Game {
   }
 
   captureCheck(piece, player) {
+    // Simple AABB collision check
     if (
       player.x + player.width <= piece.x ||
       piece.x + piece.width <= player.x
@@ -207,33 +221,36 @@ class Game {
     );
     if (!checkSquare) {
       console.log('yikes');
-      this.resetLevel(); // fail-safe
+      this.resetLevel(); // fail-safe in case of an error
+    } else {
+      checkSquare.blinkSquare();
     }
-    checkSquare.blinkSquare();
   }
 
   stopGame() {
     this.gameOver = true;
     this.player.isMoving = true;
     this.music.stop();
-    // noLoop();
+    // noLoop(); // Uncomment if you wish to stop the p5.js draw loop
   }
 }
 
-// -----------------------------------------------------------------
-// Modified getMapPiece to work with the new board format.
-//
-// Here, the function accepts the piece identifier (from the board)
-// and uses the grid coordinates (i, j) to compute pixel positions and chess notation.
+// ------------------------------------------------------------
+// Helper Functions
+// ------------------------------------------------------------
+
+/**
+ * Create a new game piece based on the board identifier.
+ * Returns null if the cell is empty.
+ */
 function getMapPiece(pieceIdentifier, i, j) {
-  // Return nothing for an empty cell.
   if (pieceIdentifier === ' ') return null;
 
   const yNotation = String.fromCharCode(65 + j);
   const xNotation = 8 - i;
   const posX = j * SQUARE_SIZE; // x position based on column
   const posY = i * SQUARE_SIZE; // y position based on row
-  const offset = 25; // offset to center the piece within the square
+  const offset = 25; // offset to center the piece
 
   const pieces = {
     G: new FinishTile(posX, posY, `${yNotation}${xNotation}`),
@@ -249,9 +266,10 @@ function getMapPiece(pieceIdentifier, i, j) {
   return pieces[pieceIdentifier];
 }
 
-// -----------------------------------------------------------------
-// The determineSquareColor, sound, and helperLevelShowGuardedTile functions remain unchanged.
-
+/**
+ * Determine the square color based on its position and the current level.
+ * Returns an array: [color (RGB array), shade, helperTile flag].
+ */
 function determineSquareColor(row, col, level) {
   let color;
   let shade;
@@ -285,8 +303,29 @@ function determineSquareColor(row, col, level) {
   return [color, shade, helperTile];
 }
 
-/* https://www.w3schools.com/graphics/game_sound.asp */
-function sound(src) {
+/**
+ * Determines whether to show a helper (guarded) tile based on level.
+ */
+function helperLevelShowGuardedTile(row, col, level) {
+  const showHelperLevels = {
+    1: { 2: [3], 4: [3] },
+    8: { 1: [3], 2: [3], 3: [1, 2, 4, 5], 4: [3], 5: [3], 6: [3] },
+    12: { 0: [7], 1: [6], 2: [1, 5], 3: [2, 4], 5: [2, 4], 6: [1], 7: [0] },
+    16: { 2: [2, 4], 3: [1, 5], 5: [1, 5], 6: [2, 4] },
+    18: { 4: [3] },
+  };
+
+  if (showHelperLevels[level] && showHelperLevels[level][row]) {
+    return showHelperLevels[level][row].includes(col);
+  }
+  return false;
+}
+
+/**
+ * Sound constructor.
+ * Creates an audio element for playback.
+ */
+function Sound(src) {
   this.sound = document.createElement('audio');
   this.sound.src = src;
   this.sound.setAttribute('preload', 'auto');
@@ -301,19 +340,4 @@ function sound(src) {
   this.stop = function () {
     this.sound.pause();
   };
-}
-
-function helperLevelShowGuardedTile(row, col, level) {
-  const showHelperLevels = {
-    1: { 2: [3], 4: [3] },
-    8: { 1: [3], 2: [3], 3: [1, 2, 4, 5], 4: [3], 5: [3], 6: [3] },
-    12: { 0: [7], 1: [6], 2: [1, 5], 3: [2, 4], 5: [2, 4], 6: [1], 7: [0] },
-    16: { 2: [2, 4], 3: [1, 5], 5: [1, 5], 6: [2, 4] },
-    18: { 4: [3] },
-  };
-
-  if (showHelperLevels[level] && showHelperLevels[level][row]) {
-    return showHelperLevels[level][row].includes(col);
-  }
-  return false;
 }

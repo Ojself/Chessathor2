@@ -6,15 +6,14 @@ class Player {
     this.width = 50;
     this.name = name;
     this.tempMove = [];
-
     this.isMoving = false;
-
-    this.lastCordinates = [25, 725];
+    this.lastCoordinates = [25, 725];
   }
 
   setup() {
     this.playerImg = loadImage('assets/bk.png');
   }
+
   draw() {
     image(
       this.playerImg,
@@ -23,77 +22,30 @@ class Player {
       this.width + 30,
       this.height + 30
     );
-    // debug
-    /* 
-    fill('blue')
-    text(`${this.x}, ${this.y}`, this.x, this.y) */
   }
 
-  // knocks back player when walking into 'check'
+  // Knocks the player back upon collision with 'check'
   knockBack() {
-    console.log('Knockback');
-    this.x = this.lastCordinates[0];
-    this.y = this.lastCordinates[1];
-  }
-
-  move() {
-    let direction;
-    const arrowDirections = {
-      38: 'north', // Arrow keys
-      40: 'south',
-      37: 'west',
-      39: 'east',
-    };
-
-    const WASDdirections = {
-      // WASD QEZCX
-      87: 'north',
-      65: 'west',
-      68: 'east',
-      83: 'south', // S
-      88: 'south', // X
-      69: 'northeast',
-      81: 'westnorth',
-      90: 'westsouth',
-      67: 'eastsouth',
-    };
-    if (keyCode > 40) {
-      direction = WASDdirections[keyCode];
-      this.movePlayer(direction);
-      return;
-    }
-
-    this.tempMove.push(keyCode);
-    if (this.tempMove.length === 2) {
-      this.tempMove.sort();
-      direction = `${arrowDirections[this.tempMove[0]]}${
-        arrowDirections[this.tempMove[1]]
-      }`;
-      this.tempMove = [];
-      this.movePlayer(direction);
-    } else {
-      setTimeout(() => {
-        direction = arrowDirections[this.tempMove[0]];
-        if (direction) {
-          this.movePlayer(direction);
-        }
-        this.tempMove = [];
-      }, 20);
-    }
+    this.x = this.lastCoordinates[0];
+    this.y = this.lastCoordinates[1];
   }
 
   movePlayer(direction) {
     switch (direction) {
       case 'northeast':
+      case 'eastnorth':
         this.smoothMove(1, -1);
         break;
       case 'eastsouth':
+      case 'southeast':
         this.smoothMove(1, 1);
         break;
       case 'westsouth':
+      case 'southwest':
         this.smoothMove(-1, 1);
         break;
       case 'westnorth':
+      case 'northwest':
         this.smoothMove(-1, -1);
         break;
       case 'north':
@@ -108,19 +60,23 @@ class Player {
       case 'east':
         this.smoothMove(1, 0);
         break;
+      default:
+        break;
     }
   }
+
   smoothMove(x, y) {
     if (this.isMoving || checkBorders(x, y, this.x, this.y)) {
       return;
     }
-    this.lastCordinates = [this.x, this.y];
+    this.lastCoordinates = [this.x, this.y];
     this.isMoving = true;
     game.moveHistory.push([x, y]);
     game.totalMoveHistory.push([x, y]);
     let moveIntervalHelper = 0;
-    aa.play('move'); // audio
-    let moveInterval = setInterval(() => {
+    aa.play('move'); // Play movement sound
+
+    const moveInterval = setInterval(() => {
       this.x += x * 5;
       this.y += y * 5;
       moveIntervalHelper++;
@@ -132,9 +88,12 @@ class Player {
   }
 }
 
+/**
+ * Check if the player’s movement would cross the canvas borders.
+ */
 function checkBorders(x, y, playerX, playerY) {
-  if (!!y) {
-    // if player is moving south or north
+  if (y) {
+    // Check vertical borders
     if (y > 0 && playerY + 100 > height) {
       return true;
     }
@@ -142,8 +101,8 @@ function checkBorders(x, y, playerX, playerY) {
       return true;
     }
   }
-  if (!!x) {
-    // if player is even moving east or west
+  if (x) {
+    // Check horizontal borders (includes buffer for UI elements)
     const rightMenuBuffer = -200;
     if (x > 0 && playerX + 100 > width + rightMenuBuffer) {
       return true;
