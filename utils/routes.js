@@ -1,4 +1,4 @@
-const baseurl = !window.location.href.includes('ojself.github.io/Chessathor2')
+const baseurl = window.location.href.includes('ojself.github.io/Chessathor2')
   ? 'https://chessathorserver.fly.dev'
   : 'http://localhost:3000';
 
