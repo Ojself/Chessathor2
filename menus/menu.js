@@ -111,7 +111,7 @@ class Menu {
       fill(r, g, b);
       textAlign(LEFT);
       const y = 485 + 35 * i;
-      image(this.flags[i], 20, y + 15, 30, 15);
+      image(this.flags[i], 20, y - 12, 30, 15);
       text(i + 1, 70, y);
       text(p.name, 100, y);
       textAlign(CENTER);
