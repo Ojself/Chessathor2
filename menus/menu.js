@@ -1,7 +1,6 @@
 class Menu {
   constructor() {
     this.highScore = null;
-    this.serversOnline = false;
     this.flags = [];
   }
 
@@ -19,11 +18,8 @@ class Menu {
     this.drawTitle();
     this.drawStartGame();
     this.drawServerStatus();
-    this.checkMouseHover();
+    this.isMenuHovering();
 
-    if (!this.serversOnline && frameCount % 200 === 1) {
-      wakeUpServer();
-    }
     if (this.highScore) {
       this.drawHighScore();
     }
@@ -36,7 +32,7 @@ class Menu {
     text('2.0', 690, 100);
   }
   drawStartGame() {
-    if (this.serversOnline) {
+    if (game.serverOnline) {
       fill('white');
       textSize(10);
       text('click to', 500, 250);
@@ -50,14 +46,14 @@ class Menu {
   }
 
   drawServerStatus() {
-    let dot = frameCount % 60 > 30 ? '.' : '..';
+    const dot = frameCount % 60 > 30 ? '.' : '..';
     fill('white');
     textSize(20);
     text('Server status: ', 100, 250);
 
     textAlign(LEFT);
     fill('white');
-    if (!this.serversOnline) {
+    if (!game.serverOnline) {
       text(`waking up ${dot}`, 50, 280);
       fill('tomato');
       ellipse(185, 245, 20, 20);
@@ -70,18 +66,16 @@ class Menu {
     textAlign(CENTER);
   }
 
-  checkMouseHover() {
-    if (!this.serversOnline) {
+  isMenuHovering() {
+    if (!game.serverOnline) {
       return false;
     }
-    if (mouseX > 350 && mouseX < 660) {
-      if (mouseY > 250 && mouseY < 320) {
-        this.hoverStartGame();
-        return true;
-      }
+    if (mouseX > 350 && mouseX < 660 && mouseY > 250 && mouseY < 320) {
+      this.drawStartGameBorder();
+      return true;
     }
   }
-  hoverStartGame() {
+  drawStartGameBorder() {
     stroke(500);
     line(310, 230, 690, 230);
     line(690, 230, 690, 330);
@@ -98,32 +92,34 @@ class Menu {
     }
   }
   drawRealPlayers(players) {
+    const tableHeaderY = 450;
     textAlign(LEFT);
     fill('white');
     textSize(20);
-    text('NAME', 100, 450);
-    text('SCORE', 220, 450);
-    text('TIME', 340, 450);
-    text('MOVES', 440, 450);
-    text('CAPTURES', 540, 450);
-    text('DATE', 680, 450);
+    text('NAME', 100, tableHeaderY);
+    text('SCORE', 220, tableHeaderY);
+    text('TIME', 340, tableHeaderY);
+    text('MOVES', 440, tableHeaderY);
+    text('CAPTURES', 540, tableHeaderY);
+    text('DATE', 680, tableHeaderY);
     players.forEach((p, i) => {
       textSize(15);
       // fade colors here
-      let r = 200 - i * 20;
-      let g = 255 - i * 25;
-      let b = 210 - i * 5;
+      let r = 200 - i * 19;
+      let g = 255 - i * 24;
+      let b = 210 - i * 4;
       fill(r, g, b);
       textAlign(LEFT);
-      image(this.flags[i], 20, 470 + 35 * i, 30, 15);
-      text(i + 1, 70, 485 + 35 * i);
-      text(p.name, 100, 485 + 35 * i);
+      const y = 485 + 35 * i;
+      image(this.flags[i], 20, y + 15, 30, 15);
+      text(i + 1, 70, y);
+      text(p.name, 100, y);
       textAlign(CENTER);
-      text(p.score, 250, 485 + 35 * i);
-      text(p.timeUsed, 360, 485 + 35 * i);
-      text(p.moves, 470, 485 + 35 * i);
-      text(p.captures, 570, 485 + 35 * i);
-      text(p.dateCompleted.slice(0, -5).replace('T', ' - '), 720, 485 + 35 * i);
+      text(p.score, 250, y);
+      text(p.timeUsed, 360, y);
+      text(p.moves, 470, y);
+      text(p.captures, 570, y);
+      text(p.dateCompleted.slice(0, -5).replace('T', ' - '), 720, y);
     });
   }
 }

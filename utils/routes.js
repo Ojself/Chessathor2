@@ -7,7 +7,7 @@ function wakeUpServer() {
     .get(`${baseurl}/wakeup`)
     .then((response) => {
       if ([204, 201, 200].includes(response.status)) {
-        game.menu.serversOnline = true;
+        game.serverOnline = true;
         game.menu.highScore = response.data.highScore;
         game.menu.preloadImages();
       }

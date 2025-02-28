@@ -47,7 +47,7 @@ function keyPressed() {
   }
 
   // Start game on Enter (keyCode 13) if conditions met
-  if (!game.gameStarted && game.menu.serversOnline && keyCode === 13) {
+  if (!game.gameStarted && game.serverOnline && keyCode === 13) {
     startGame();
   }
   return false; // Prevent any default behaviour
@@ -65,7 +65,7 @@ function mouseClicked() {
     }
   }
   if (!game.gameStarted) {
-    if (game.menu.checkMouseHover()) {
+    if (game.menu.isMenuHovering()) {
       startGame();
     }
   }

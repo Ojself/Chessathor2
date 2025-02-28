@@ -15,6 +15,7 @@ class Game {
     this.checks = 0;
     this.totalChecks = 0;
     this.hud = new Hud();
+    this.serverOnline = false;
     this.menu = new Menu();
     this.check = {
       checked: false,
@@ -27,6 +28,9 @@ class Game {
   }
 
   setup() {
+    if (!this.serverOnline) {
+      wakeUpServer();
+    }
     this.background.setup();
     // Reset arrays when (re)starting the level
     this.squares = [];
@@ -78,7 +82,6 @@ class Game {
     }
 
     this.background.draw();
-    this.hud.draw();
 
     // Draw board squares
     this.squares.forEach((square) => {
@@ -113,6 +116,7 @@ class Game {
 
     // Draw the player last so they appear on top
     this.player.draw();
+    this.hud.draw();
 
     // Display check notification if active
     if (this.check.checked) {

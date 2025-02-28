@@ -1,82 +1,66 @@
 class Queen {
-    constructor(x, y, id) {
-        this.x = x;
-        this.y = y;
-        this.width = 50;
-        this.height = 50;
+  constructor(x, y, id) {
+    this.x = x;
+    this.y = y;
+    this.width = 50;
+    this.height = 50;
 
-        this.name = 'queen'
-        this.id = id // chess notation eg. E4
+    this.name = 'queen';
+    this.id = id; // chess notation eg. E4
 
-        this.expanding = false
-        this.dead = false
+    this.expanding = false;
+    this.dead = false;
+    this.colorRng = Math.floor(Math.random() * 255);
+  }
 
-        this.s = 100
-    }
+  setup() {
+    this.queenImg = loadImage('assets/bq.png');
+  }
 
-    setup() {
-        this.queenImg = loadImage('assets/bq.png');
-    }
-
-    draw() {
-        if (this.dead) { // drawns ending hearts
-            for (let x = 0; x < width - 200; x += this.s) {
-                for (let y = 0; y < height; y += this.s) {
-                    fill(800 * x / width, 120 * y / height, 255);
-                    heart(x + this.s / 2, (y + this.s / 2) - 25, this.s / 2);
-                }
-            }
+  draw() {
+    if (this.dead) {
+      // drawns ending hearts
+      const squareSize = this.width + this.height;
+      for (let x = 0; x < width - 200; x += squareSize) {
+        for (let y = 0; y < height; y += squareSize) {
+          fill(x % 255, y % 255, (x + y + this.colorRng) % 255);
+          heart(x + squareSize / 2, y + squareSize / 2 - 25, squareSize / 2);
         }
-        image(this.queenImg, this.x - 15, this.y - 15, this.width + 30, this.height + 30);
+      }
+    }
+    image(
+      this.queenImg,
+      this.x - 15,
+      this.y - 15,
+      this.width + 30,
+      this.height + 30
+    );
+  }
 
+  collisionCheck(player) {
+    if (this.dead) {
+      return false;
     }
 
-    collisionCheck(player) {
-        if (this.dead === true) { return false }
+    return false;
+  }
+  tempExpandImage() {
+    this.expanding = true;
+    setTimeout(() => {
+      this.expanding = false;
+    }, 200);
+  }
 
-        if (player.y >= this.y && player.y <= this.y) {
-
-            if (player.x >= this.x && player.x <= this.x) {
-
-
-
-            }
-            if (player.x >= this.x && player.x <= this.x) {
-
-
-            }
-        }
-
-        return false
-    }
-    tempExpandImage() {
-        this.expanding = true
-        setTimeout(() => {
-            this.expanding = false
-        }, 200);
-    }
-
-    handleDead() {
-        this.dead = true
-    }
-
-    heart() {
-        const s = 200;
-        for (x = 0; x < width; x += s) {
-            for (y = 0; y < height; y += s) {
-                fill(310 * x / width, 127, 255);
-                heart(x + s / 2, y + s / 2, s / 2);
-
-            }
-        }
-    }
+  handleDead() {
+    this.dead = true;
+  }
 }
 function heart(x, y, size) {
-    beginShape();
-    vertex(x, y);
-    bezierVertex(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
-    bezierVertex(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
-    endShape(CLOSE);
+  beginShape();
+  vertex(x, y);
+  bezierVertex(x - size / 2, y - size / 2, x - size, y + size / 3, x, y + size);
+  bezierVertex(x + size, y + size / 3, x + size / 2, y - size / 2, x, y);
+  endShape(CLOSE);
 
-    game.stopGame()
+  game.stopGame();
 }

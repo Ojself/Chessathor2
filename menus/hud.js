@@ -19,6 +19,7 @@ class Hud {
     this.drawOldTimes();
     if (game.gameOver) {
       this.drawInputField();
+      this.drawAlas();
     }
     if (this.submitted) {
       this.drawFinalScore();
@@ -99,6 +100,20 @@ class Hud {
     });
   }
 
+  drawAlas() {
+    textFont('Courier New');
+    fill('black');
+    rect(225, 325, 400, 150);
+    fill('white');
+    textAlign(CENTER);
+    textSize(25);
+    text('Alas!', 425, 375);
+    textAlign(LEFT);
+    textSize(18);
+    text('But our queen is in another castle', 245, 420);
+    textFont('Helvetica');
+  }
+
   drawInputField() {
     textAlign(LEFT);
     fill('white');
@@ -124,7 +139,9 @@ class Hud {
 
       textSize(20);
       fill('white');
-      text('SUBMIT!', 872, 185);
+      text('SUBMIT!', 872, 182);
+
+      fill('black');
     }
   }
   enterName(key, keyCode) {
