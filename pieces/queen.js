@@ -10,7 +10,7 @@ class Queen {
 
     this.expanding = false;
     this.dead = false;
-    this.colorRng = Math.floor(Math.random() * 255);
+    this.rng = Math.floor(Math.random() * 255);
   }
 
   setup() {
@@ -23,7 +23,7 @@ class Queen {
       const squareSize = this.width + this.height;
       for (let x = 0; x < width - 200; x += squareSize) {
         for (let y = 0; y < height; y += squareSize) {
-          fill(x % 255, y % 255, (x + y + this.colorRng) % 255);
+          fill((x + y) % 255, (x * y) % 255, this.rng);
           heart(x + squareSize / 2, y + squareSize / 2 - 25, squareSize / 2);
         }
       }

@@ -53,13 +53,11 @@ class Game {
         }
 
         // Create a square at this grid location with determined color
-        const squareColorInfo = determineSquareColor(i, j, this.currentLevel);
+        const squareColorInfo = getSquareInfo(i, j, this.currentLevel);
         const square = new Square(
           i * SQUARE_SIZE,
           j * SQUARE_SIZE,
-          squareColorInfo[0],
-          squareColorInfo[1],
-          squareColorInfo[2]
+          squareColorInfo
         );
         this.squares.push(square);
       }
@@ -272,39 +270,35 @@ function getMapPiece(pieceIdentifier, i, j) {
 
 /**
  * Determine the square color based on its position and the current level.
- * Returns an array: [color (RGB array), shade, helperTile flag].
+ * Returns an array: [color (RGB array), shade, helperSquare flag].
  */
-function determineSquareColor(row, col, level) {
+function getSquareInfo(row, col, level) {
   let color;
-  let shade;
-  let helperTile = false;
+  let helperSquare = false;
+  let isLight = false;
+
+  let r;
+  let g;
+  let b;
 
   if ((row % 2 === 0 && col % 2 === 0) || (row % 2 === 1 && col % 2 === 1)) {
-    let r = Math.random() * 4 + 245;
-    let g = Math.random() * 4 + 245;
-    let b = Math.random() * 4 + 220;
-    shade = 'light';
-    if (helperLevelShowGuardedTile(row, col, level)) {
-      r = 222;
-      g = 134;
-      b = 85;
-      helperTile = true;
-    }
-    color = [r, g, b];
+    isLight = true;
+    r = Math.random() * 4 + 245;
+    g = Math.random() * 4 + 245;
+    b = Math.random() * 4 + 220;
   } else {
-    let r = Math.random() * 4 + 222;
-    let g = Math.random() * 4 + 184;
-    let b = Math.random() * 4 + 135;
-    shade = 'dark';
-    if (helperLevelShowGuardedTile(row, col, level)) {
-      r = 222;
-      g = 134;
-      b = 85;
-      helperTile = true;
-    }
-    color = [r, g, b];
+    r = Math.random() * 4 + 222;
+    g = Math.random() * 4 + 184;
+    b = Math.random() * 4 + 135;
   }
-  return [color, shade, helperTile];
+  if (helperLevelShowGuardedTile(row, col, level)) {
+    r = 222;
+    g = 134;
+    b = 85;
+    helperSquare = true;
+  }
+  color = [r, g, b];
+  return { color, helperSquare, isLight };
 }
 
 /**

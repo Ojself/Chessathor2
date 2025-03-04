@@ -1,32 +1,31 @@
+const GUARDED_COLOR = [222, 134, 85];
 class Square {
-  constructor(x, y, color, shade, helperSquare) {
+  constructor(x, y, options) {
     this.x = x;
     this.y = y;
-    this.width = 100;
-    this.height = 100;
-    this.color = color;
+    this.width = SQUARE_SIZE;
+    this.height = SQUARE_SIZE;
+    this.color = options.color;
 
-    this.lightGuardedColor = [245, 245, 220]
-    this.darkGuardedColor = [222, 184, 135]
-    this.helperGuardedColor = [222, 134, 85]
-    this.shade = shade
-    this.iAmLightSquared = shade === 'light'
-    this.guardedTile = false
+    this.lightGuardedColor = [245, 245, 220];
+    this.darkGuardedColor = [222, 184, 135];
+    this.helperGuardedColor = [222, 134, 85];
 
-    this.helperSquare = helperSquare
+    this.guardedSquare = false;
+    this.helperSquare = options.helperSquare;
+
+    this.isLight = options.isLight;
   }
   draw() {
-
-    if (this.guardedTile) {
+    if (this.guardedSquare) {
       if (this.helperSquare) {
-        fill(this.helperGuardedColor)
-      } else if (this.iAmLightSquared) {
-        fill(this.lightGuardedColor)
+        fill(this.helperGuardedColor);
+      } else if (this.isLight) {
+        fill(this.lightGuardedColor);
       } else {
-        fill(this.darkGuardedColor)
+        fill(this.darkGuardedColor);
       }
-    }
-    else {
+    } else {
       fill(this.color);
     }
     rect(this.x, this.y, this.width, this.height);
@@ -38,56 +37,57 @@ class Square {
   }
 
   resetColor() {
-    this.color = this.iAmLightSquared ? [245, 245, 220] : [222, 184, 135]
+    this.color = this.isLight
+      ? [
+          Math.random() * 4 + 245,
+          Math.random() * 4 + 245,
+          Math.random() * 4 + 220,
+        ]
+      : [
+          Math.random() * 4 + 222,
+          Math.random() * 4 + 184,
+          Math.random() * 4 + 135,
+        ];
   }
 
   blinkSquare() {
-    this.guardedTile = true
-    this.changeRedColor()
+    this.guardedSquare = true;
+    this.changeRedColor();
     setTimeout(() => {
-      this.guardedTile = false
+      this.guardedSquare = false;
     }, 500);
   }
 
-  // makes tile red for a brief time and fades back to normal
+  // makes square red for a brief time and fades back to normal
   changeRedColor() {
-    if (this.helperSquare) {
-      let g = 134
-      let b = 85
-      const helperInterval = setInterval(() => {
-        g += 0.5
-        b += 0.5
-        this.helperGuardedColor = [222, g, b]
-        if (g >= 189) {
-          clearInterval(helperInterval)
-          this.helperGuardedColor = [222, 134, 85]
+    let ticker = 0;
+    let r = 222;
+    let g = 134;
+    let b = 85;
+
+    const helperInterval = setInterval(() => {
+      ticker++;
+      if (this.helperSquare) {
+        if (this.isLight) {
+          this.helperGuardedColor = [r, g, b];
         }
-      }, 1);
-    } else if (this.iAmLightSquared) {
-      let g = 195
-      let b = 170
-      const lightInterval = setInterval(() => {
-        g += 0.5
-        b += 0.5
-        this.lightGuardedColor = [245, g, b]
-        if (g >= 245) {
-          clearInterval(lightInterval)
-          this.lightGuardedColor = [245, 245, 220]
+        if (!this.isLight) {
+          this.helperGuardedColor = [r, g, b];
         }
-      }, 1);
-    } else {
-      let g = 134
-      let b = 85
-      const darkInterval = setInterval(() => {
-        g += 0.5
-        b += 0.5
-        this.darkGuardedColor = [222, g, b]
-        if (g >= 196) {
-          clearInterval(darkInterval)
-          this.darkGuardedColor = [222, 184, 135]
+      } else {
+        if (this.isLight) {
+          this.lightGuardedColor = [245, g + 60, b + 75];
         }
-      }, 1);
-    }
+        if (!this.isLight) {
+          this.darkGuardedColor = [222, g, b];
+        }
+      }
+      if (ticker >= 110) {
+        clearInterval(helperInterval);
+        this.helperGuardedColor = GUARDED_COLOR;
+        this.lightGuardedColor = [245, 245, 220];
+        this.darkGuardedColor = [222, 184, 135];
+      }
+    }, 1);
   }
 }
-
