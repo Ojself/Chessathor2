@@ -110,21 +110,19 @@ class Hud {
     text('Alas!', 425, 375);
     textAlign(LEFT);
     textSize(18);
-    text('But our queen is in another castle', 245, 420);
+    text('Our queen is in another castle', 255, 420);
     textFont('Helvetica');
   }
 
   drawInputField() {
     textAlign(LEFT);
-    fill('white');
+    fill(this.submitted ? 'gray' : 'white');
     textSize(20);
     text('Enter name', 862, 80);
-
     rect(830, 100, 180, 50);
-
     fill('black');
     textSize(25);
-    text(this.inputField, 840, 125); // max 9
+    text(this.inputField, 840, 130); // max 9
 
     if (frameCount % 60 < 30 && this.inputField.length < 1) {
       rect(835, 105, 5, 40);
@@ -145,6 +143,9 @@ class Hud {
     }
   }
   enterName(key, keyCode) {
+    if (this.submitted) {
+      return;
+    }
     if (keyCode === 8) {
       // backspace
       this.inputField = this.inputField.slice(0, -1);
@@ -159,7 +160,6 @@ class Hud {
     this.inputField += key;
   }
   submitHover() {
-    // this is only triggered by mouseClick
     if (mouseX > 870 && mouseX < 970) {
       if (mouseY > 160 && mouseY < 190) {
         this.submitted = true;
@@ -174,6 +174,7 @@ class Hud {
     fill('white');
     text(`Score: ${this.finalScore}`, 810, 180);
   }
+
   drawHotTips(level) {
     textAlign(CENTER);
 

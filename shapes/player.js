@@ -69,8 +69,8 @@ class Player {
     if (this.isMoving || checkBorders(x, y, this.x, this.y)) {
       return;
     }
-    this.lastCoordinates = [this.x, this.y];
     this.isMoving = true;
+    this.lastCoordinates = [this.x, this.y];
     game.moveHistory.push([x, y]);
     game.totalMoveHistory.push([x, y]);
     let moveIntervalHelper = 0;
